@@ -1,0 +1,697 @@
+---
+// --- TES LIENS STRIPE À REMPLACER ICI ---
+const Lien_Stripe_M1 = "https://buy.stripe.com/14A9AT05q35W83adr77EQ01";
+const Lien_Stripe_M2 = "https://buy.stripe.com/5kQ5kDg4o21S3MUdr77EQ02";
+const Lien_Stripe_M3 = "https://buy.stripe.com/8x2fZh5pK6i82IQ4UB7EQ03";
+const Lien_Stripe_M4 = "https://buy.stripe.com/00w00j05q0XOabi5YF7EQ04";
+const Lien_Stripe_PACK = "https://buy.stripe.com/fZu00j2dydKA4QY5YF7EQ00";
+
+const title = "DOMINEZ VOTRE MARCHÉ | LA MÉTHODE ALEX";
+const expertName = "Alex"; // <--- CETTE LIGNE MANQUAIT PROBABLEMENT
+
+const modules = [
+	// ... le reste ne change pas
+	{
+		id: "m1",
+		title: "01. ARCHITECTURE & RADAR CLIENT - 23/04/2026",
+		tool: "Le Radar Client Haute-Précision",
+		desc: "Arrêtez de gaspiller votre énergie sur des prospects qui ne signeront jamais. Dans ce module, nous décortiquons la psychologie de votre acheteur idéal. Nous construisons votre matrice d'acquisition sur-mesure pour que vous sachiez exactement où chasser, comment prioriser vos efforts et comment devenir l'évidence aux yeux de votre marché.",
+		price: "150€",
+		link: Lien_Stripe_M1,
+	},
+	{
+		id: "m2",
+		title: "02. LA TRAME DE CLOSING INFRACHISSABLE - 30/04/2026",
+		tool: "Votre Script de Vente A à Z",
+		desc: "La vente n'est pas une improvisation, c'est une science. Je vous livre la structure exacte pour mener n'importe quel entretien, de la première poignée de main à la signature finale. Apprenez à poser les questions qui font mal, à instaurer une autorité immédiate et à guider votre client vers le 'Oui' sans jamais passer pour un vendeur agressif.",
+		price: "150€",
+		link: Lien_Stripe_M2,
+	},
+	{
+		id: "m3",
+		title: "03. GUÉRILLA : PROSPECTION & PHONING - 07/05/2026",
+		tool: "Le Script Brise-Glace Éprouvé",
+		desc: "Le téléphone et la porte d'entrée sont vos meilleurs alliés, pas vos ennemis. Je vous transmets les techniques de terrain héritées des foires et du porte-à-porte pour briser le barrage du secrétariat, capter l'attention en moins de 10 secondes et transformer la peur du rejet en une adrénaline de conquête. Ne subissez plus, provoquez l'opportunité.",
+		price: "150€",
+		link: Lien_Stripe_M3,
+	},
+	{
+		id: "m4",
+		title: "04. MAÎTRISE TOTALE DES OBJECTIONS - 14/05/2026",
+		tool: "Le Guide de Riposte Commerciale",
+		desc: "'C'est trop cher', 'Je dois réfléchir', 'On verra plus tard'. Ces phrases ne sont plus des obstacles, mais des invitations à conclure. Apprenez la psychologie qui se cache derrière chaque refus. Je vous donne les répliques exactes et l'attitude mentale pour désamorcer les doutes et verrouiller vos prix sans jamais faire de concession.",
+		price: "150€",
+		link: Lien_Stripe_M4,
+	},
+];
+---
+
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>{title}</title>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Montserrat:wght@400;700;900&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			:root {
+				--tony-black: #000000;
+				--tony-orange: #ff5500;
+				--tony-gray: #111111;
+				--white: #ffffff;
+				--nav-height: 84px;
+			}
+
+			body {
+				background: var(--tony-black);
+				color: var(--white);
+				font-family: "Montserrat", sans-serif;
+				margin: 0;
+				scroll-behavior: smooth;
+			}
+
+			h1,
+			h2,
+			h3,
+			.oswald {
+				font-family: "Oswald", sans-serif;
+				text-transform: uppercase;
+			}
+
+			.container {
+				max-width: 1100px;
+				margin: 0 auto;
+				padding: 0 1.5rem;
+			}
+
+			.urgency-bar {
+				background: #c44914;
+				color: #000;
+				font-weight: 900;
+				text-align: center;
+				padding: 0.85rem 1rem;
+				letter-spacing: 0.4px;
+				text-transform: uppercase;
+			}
+
+			.top-nav {
+				position: sticky;
+				top: 0;
+				z-index: 1000;
+				height: var(--nav-height);
+				display: flex;
+				align-items: center;
+				background: rgba(0, 0, 0, 0.78);
+				backdrop-filter: blur(8px);
+				border-bottom: 2px solid #c44914;
+			}
+
+			.nav-inner {
+				max-width: 1100px;
+				width: 100%;
+				margin: 0 auto;
+				padding: 0 1.5rem;
+				display: flex;
+				align-items: center;
+				justify-content: flex-start;
+			}
+
+			.brand-logo {
+				display: block;
+				max-height: 60px;
+				width: auto;
+				image-rendering: crisp-edges;
+				image-rendering: pixelated;
+			}
+
+			/* HERO SECTION */
+			.hero {
+				min-height: 95vh;
+				padding-top: calc(var(--nav-height) + 1.5rem);
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				text-align: center;
+				background:
+					linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+					url("https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80"); /* Image de backup */
+				background-size: cover;
+				background-position: center;
+				border-bottom: 10px solid var(--tony-orange);
+			}
+			.hero h1 {
+				font-size: 6rem;
+				margin: 0;
+				line-height: 0.9;
+				letter-spacing: -2px;
+				font-weight: 900;
+				text-align: center;
+			}
+			.hero h1 span {
+				color: var(--tony-orange);
+			}
+			.hero p {
+				font-size: 1.6rem;
+				color: #ccc;
+				max-width: 850px;
+				margin: 2rem auto;
+				font-weight: 400;
+				text-align: center;
+				margin-left: auto;
+				margin-right: auto;
+			}
+
+			.countdown-wrap {
+				margin: 2rem auto 0 auto;
+				padding: 1rem 1.2rem;
+				background: rgba(0, 0, 0, 0.6);
+				border: 1px solid rgba(255, 255, 255, 0.22);
+				max-width: 980px;
+				text-align: center;
+			}
+
+			.countdown-title {
+				font-size: 1rem;
+				letter-spacing: 2px;
+				font-weight: 700;
+				color: #ffb081;
+				margin-bottom: 0.7rem;
+			}
+
+			.countdown {
+				display: grid;
+				grid-template-columns: repeat(4, minmax(90px, 1fr));
+				gap: 0.8rem;
+				place-items: center;
+				text-align: center;
+			}
+
+			.countdown-item {
+				background: rgba(0, 0, 0, 0.72);
+				padding: 0.8rem 0.6rem;
+				border: 1px solid rgba(255, 255, 255, 0.2);
+				text-align: center;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.countdown-value {
+				font-family: "Oswald", sans-serif;
+				font-size: 3rem;
+				line-height: 1;
+				font-weight: 700;
+				color: #fff;
+			}
+
+			.countdown-label {
+				font-family: "Montserrat", sans-serif;
+				font-size: 0.82rem;
+				font-weight: 700;
+				letter-spacing: 1.2px;
+				color: #d2d2d2;
+				margin-top: 0.4rem;
+				text-transform: uppercase;
+			}
+
+			/* PAINS SECTION */
+			.pains {
+				background: var(--tony-gray);
+				padding: 6rem 0;
+				border-bottom: 1px solid #222;
+			}
+			.pains h2 {
+				font-size: 3rem;
+				text-align: center;
+				margin-bottom: 4rem;
+			}
+			.pain-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+				gap: 30px;
+			}
+			.pain-item {
+				background: #000;
+				border: 1px solid #333;
+				padding: 2.5rem;
+				border-radius: 4px;
+				text-align: center;
+				transition: 0.3s;
+			}
+			.pain-item:hover {
+				border-color: var(--tony-orange);
+				transform: translateY(-5px);
+			}
+
+			/* MODULES SECTION */
+			.modules {
+				padding: 8rem 0;
+			}
+			.module-row {
+				background: #111;
+				margin-bottom: 3rem;
+				border: 1px solid #222;
+				transition: 0.3s;
+			}
+			.module-content {
+				padding: 4rem;
+			}
+			.module-content h3 {
+				font-size: 2.5rem;
+				margin: 1rem 0;
+				color: #fff;
+			}
+			.tool-label {
+				color: var(--tony-orange);
+				font-weight: 900;
+				letter-spacing: 2px;
+				font-size: 0.9rem;
+			}
+			.module-desc {
+				font-size: 1.2rem;
+				line-height: 1.8;
+				color: #bbb;
+				margin-bottom: 2.5rem;
+			}
+
+			/* PACK COMPLET */
+			.pack-premium {
+				background: linear-gradient(45deg, #000, #1a100a);
+				border: 4px solid var(--tony-orange);
+				padding: 5rem;
+				text-align: center;
+				margin-top: 6rem;
+			}
+
+			/* FORMULAIRE & BOUTONS */
+			.btn-tony {
+				background: var(--tony-orange);
+				color: white;
+				padding: 1.5rem 3.5rem;
+				text-decoration: none;
+				font-weight: 900;
+				display: inline-block;
+				font-size: 1.3rem;
+				border-radius: 4px;
+				transition: 0.3s;
+				border: none;
+				cursor: pointer;
+				font-family: "Oswald", sans-serif;
+			}
+			.btn-tony:hover {
+				transform: scale(1.05);
+				filter: brightness(1.2);
+			}
+
+			.form-section {
+				background: #fff;
+				color: #000;
+				padding: 5rem 0;
+			}
+			.form-card {
+				max-width: 600px;
+				margin: 0 auto;
+				background: #fff;
+			}
+			.form-card h2 {
+				font-size: 3rem;
+				margin-bottom: 1rem;
+				text-align: center;
+			}
+			input,
+			select {
+				width: 100%;
+				padding: 1.2rem;
+				margin-bottom: 1.5rem;
+				border: 2px solid #eee;
+				font-size: 1rem;
+				font-family: "Montserrat", sans-serif;
+			}
+
+			.location-note {
+				font-family: "Montserrat", sans-serif;
+				font-size: 1.02rem;
+				line-height: 1.75;
+				color: #1f1f1f;
+				background: #fff4ed;
+				border-left: 4px solid var(--tony-orange);
+				padding: 1rem 1.1rem;
+				margin: 0.3rem 0 1.4rem;
+			}
+
+			.site-footer {
+				text-align: center;
+				padding: 4rem;
+				color: #444;
+				border-top: 1px solid #111;
+			}
+
+			.footer-logo {
+				display: block;
+				width: 150px;
+				max-width: 100%;
+				height: auto;
+				margin: 0 auto 1.2rem;
+				image-rendering: crisp-edges;
+				image-rendering: pixelated;
+			}
+
+			.social-proof {
+				font-size: 0.95rem;
+				line-height: 1.5;
+				font-weight: 700;
+				max-width: 640px;
+				margin: 1.3rem auto 0;
+			}
+
+			@media (max-width: 768px) {
+				:root {
+					--nav-height: 76px;
+				}
+
+				.urgency-bar {
+					font-size: 0.78rem;
+					line-height: 1.5;
+				}
+
+				.hero h1 {
+					font-size: 3.5rem;
+				}
+
+				.countdown {
+					grid-template-columns: repeat(2, minmax(110px, 1fr));
+				}
+
+				.countdown-value {
+					font-size: 2.4rem;
+				}
+				.module-content {
+					padding: 2rem;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="urgency-bar">
+			PROCHAINE SESSION : 23 AVRIL À MORNANT | ATTENTION : PLUS QUE 3
+			PLACES DISPONIBLES SUR 8
+		</div>
+
+		<nav class="top-nav">
+			<div class="nav-inner">
+				<img src="/logo-alex.png" alt="Logo Alex" class="brand-logo" />
+			</div>
+		</nav>
+
+		<section class="hero">
+			<div class="container">
+				<h1>MAÎTRISEZ L'ART DE GÉNÉRER DES <span>REVENUS</span></h1>
+				<div class="countdown-wrap">
+					<div class="countdown-title">Lancement dans</div>
+					<div class="countdown" id="countdown">
+						<div class="countdown-item">
+							<div class="countdown-value" id="countdown-days">
+								00
+							</div>
+							<div class="countdown-label">Jours</div>
+						</div>
+						<div class="countdown-item">
+							<div class="countdown-value" id="countdown-hours">
+								00
+							</div>
+							<div class="countdown-label">Heures</div>
+						</div>
+						<div class="countdown-item">
+							<div class="countdown-value" id="countdown-minutes">
+								00
+							</div>
+							<div class="countdown-label">Minutes</div>
+						</div>
+						<div class="countdown-item">
+							<div class="countdown-value" id="countdown-seconds">
+								00
+							</div>
+							<div class="countdown-label">Secondes</div>
+						</div>
+					</div>
+				</div>
+				<p>
+					Ma mission est de vous transmettre des outils concrets qui
+					deviennent des leviers immediats de croissance. L'objectif
+					est que vous puissiez repartir vendre et augmenter vos
+					revenus des la fin d'un module, en transformant chaque
+					opportunite en client fidele.
+				</p>
+				<a href="#register" class="btn-tony">REJOINDRE L'IMMERSION</a>
+			</div>
+		</section>
+
+		<section class="pains">
+			<div class="container">
+				<h2>POURQUOI VOUS NE SIGNEZ PAS ASSEZ ?</h2>
+				<div class="pain-grid">
+					<div class="pain-item">
+						<div style="font-size: 3rem; margin-bottom: 1rem;">
+							🤐
+						</div>
+						L'OBJECTION VOUS FAIT RECULER
+					</div>
+					<div class="pain-item">
+						<div style="font-size: 3rem; margin-bottom: 1rem;">
+							📞
+						</div>
+						LE PHONING VOUS PARALYSE
+					</div>
+					<div class="pain-item">
+						<div style="font-size: 3rem; margin-bottom: 1rem;">
+							📉
+						</div>
+						VOTRE CLOSING EST ALÉATOIRE
+					</div>
+					<div class="pain-item">
+						<div style="font-size: 3rem; margin-bottom: 1rem;">
+							🧱
+						</div>
+						VOTRE PRIX EST UN OBSTACLE
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="modules">
+			<div class="container">
+				<h2
+					style="text-align:center; font-size: 4rem; margin-bottom: 5rem;"
+				>
+					PROGRAMME D'EXCELLENCE
+				</h2>
+
+				{
+					modules.map((m) => (
+						<div class="module-row">
+							<div class="module-content">
+								<span class="tool-label">
+									INCLUS : {m.tool}
+								</span>
+								<h3>{m.title}</h3>
+								<p class="module-desc">{m.desc}</p>
+								<div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #333; padding-top: 2rem;">
+									<span style="font-size: 2.5rem; font-weight: 900;">
+										{m.price}
+									</span>
+									<a
+										href="#register"
+										class="btn-tony"
+										style="padding: 1rem 2rem; font-size: 1rem;"
+									>
+										S'INSCRIRE À CE MODULE
+									</a>
+								</div>
+							</div>
+						</div>
+					))
+				}
+
+				<div class="pack-premium">
+					<span
+						class="oswald"
+						style="color: var(--tony-orange); font-size: 1.5rem;"
+						>OFFRE D'IMMERSION TOTALE</span
+					>
+					<h2 style="font-size: 4rem; color: #fff; margin: 1rem 0;">
+						PACK COMPLET "L'EXPERT DU TERRAIN"
+					</h2>
+					<p
+						style="font-size: 1.4rem; color: #ccc; margin-bottom: 3rem;"
+					>
+						Prenez le contrôle total. Les 4 piliers réunis pour une
+						transformation radicale de vos revenus.
+					</p>
+					<p
+						style="font-size: 1.15rem; margin: -1rem 0 2.5rem; font-weight: 700; color: var(--tony-orange);"
+					>
+						Sessions d'immersion en présentiel à Mornant.
+					</p>
+					<p
+						class="social-proof"
+						style="color: #f5d5c4; margin-top: -0.8rem;"
+					>
+						Sessions limitées à 8 participants pour garantir une
+						immersion totale et des résultats immédiats.
+					</p>
+					<div
+						style="font-size: 5rem; font-weight: 900; color: var(--tony-orange); margin-bottom: 2rem;"
+					>
+						490€ <span
+							style="font-size: 1.5rem; text-decoration: line-through; color: #555; font-weight: normal;"
+							>600€</span
+						>
+					</div>
+					<a
+						href="#register"
+						class="btn-tony"
+						style="padding: 2rem 4rem; font-size: 1.5rem;"
+						>JE VEUX LE PACK COMPLET</a
+					>
+				</div>
+			</div>
+		</section>
+
+		<section id="register" class="form-section">
+			<div class="container">
+				<div class="form-card">
+					<h2>PASSEZ À L'ACTION</h2>
+					<p style="text-align: center; margin-bottom: 3rem;">
+						Remplissez vos informations pour être redirigé vers le
+						paiement sécurisé.
+					</p>
+
+					<form id="payment-form">
+						<input
+							type="text"
+							id="fname"
+							placeholder="Prénom"
+							required
+						/>
+						<input
+							type="email"
+							id="email"
+							placeholder="Votre adresse email"
+							required
+						/>
+						<select id="product-choice">
+							<option value={Lien_Stripe_PACK}
+								>PACK COMPLET (4 Ateliers) - 490€</option
+							>
+							<option value={Lien_Stripe_M1}
+								>Module 01 : Stratégie & Ciblage - 150€</option
+							>
+							<option value={Lien_Stripe_M2}
+								>Module 02 : Le Plan de Vente - 150€</option
+							>
+							<option value={Lien_Stripe_M3}
+								>Module 03 : Prospection Offensive - 150€</option
+							>
+							<option value={Lien_Stripe_M4}
+								>Module 04 : Traitement des Objections - 150€</option
+							>
+						</select>
+
+						<p class="location-note">
+							Les sessions se déroulent à Mornant (69440). Après
+							votre règlement, vous recevrez instantanément par
+							email votre convocation avec l'adresse exacte et
+							tous les détails logistiques.
+						</p>
+
+						<button
+							type="submit"
+							class="btn-tony"
+							style="width: 100%; border: none;"
+							>VALIDER ET PAYER SUR STRIPE</button
+						>
+						<p
+							class="social-proof"
+							style="text-align: center; color: #2a2a2a; margin-top: 1rem;"
+						>
+							Sessions limitées à 8 participants pour garantir une
+							immersion totale et des résultats immédiats.
+						</p>
+					</form>
+				</div>
+			</div>
+		</section>
+
+		<footer class="site-footer">
+			<img src="/logo-alex.png" alt="Logo Alex" class="footer-logo" />
+			© {new Date().getFullYear()} ATELIERS VENTE AVEC {
+				expertName.toUpperCase()
+			} - TOUS DROITS RÉSERVÉS
+		</footer>
+
+		<script is:inline>
+			const form = document.getElementById("payment-form");
+			form.addEventListener("submit", (e) => {
+				e.preventDefault();
+				const stripeUrl = document
+					.getElementById("product-choice")
+					.value.trim();
+				const isValidStripeCheckout =
+					stripeUrl.startsWith("https://buy.stripe.com") &&
+					/^https:\/\/buy\.stripe\.com\/.+/.test(stripeUrl);
+
+				if (!isValidStripeCheckout) {
+					alert(
+						"Petit souci de lien de paiement : merci de recharger la page ou de nous contacter pour finaliser votre inscription en toute sécurité.",
+					);
+					return;
+				}
+				// On peut ajouter ici une logique pour enregistrer l'email avant la redirection
+				window.location.href = stripeUrl;
+			});
+
+			const countdownDays = document.getElementById("countdown-days");
+			const countdownHours = document.getElementById("countdown-hours");
+			const countdownMinutes =
+				document.getElementById("countdown-minutes");
+			const countdownSeconds =
+				document.getElementById("countdown-seconds");
+			const countdownTarget = new Date(
+				"2026-04-23T09:00:00+02:00",
+			).getTime();
+
+			const pad = (value) => String(value).padStart(2, "0");
+
+			const updateCountdown = () => {
+				const now = Date.now();
+				const timeLeft = countdownTarget - now;
+
+				if (timeLeft <= 0) {
+					countdownDays.textContent = "00";
+					countdownHours.textContent = "00";
+					countdownMinutes.textContent = "00";
+					countdownSeconds.textContent = "00";
+					return;
+				}
+
+				const totalSeconds = Math.floor(timeLeft / 1000);
+				const days = Math.floor(totalSeconds / 86400);
+				const hours = Math.floor((totalSeconds % 86400) / 3600);
+				const minutes = Math.floor((totalSeconds % 3600) / 60);
+				const seconds = totalSeconds % 60;
+
+				countdownDays.textContent = pad(days);
+				countdownHours.textContent = pad(hours);
+				countdownMinutes.textContent = pad(minutes);
+				countdownSeconds.textContent = pad(seconds);
+			};
+
+			updateCountdown();
+			setInterval(updateCountdown, 1000);
+		</script>
+	</body>
+</html>

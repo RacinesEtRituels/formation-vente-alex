@@ -1,47 +1,55 @@
 ---
-// --- TES LIENS STRIPE À REMPLACER ICI ---
-const Lien_Stripe_M1 = "https://buy.stripe.com/14A9AT05q35W83adr77EQ01";
-const Lien_Stripe_M2 = "https://buy.stripe.com/5kQ5kDg4o21S3MUdr77EQ02";
-const Lien_Stripe_M3 = "https://buy.stripe.com/8x2fZh5pK6i82IQ4UB7EQ03";
-const Lien_Stripe_M4 = "https://buy.stripe.com/00w00j05q0XOabi5YF7EQ04";
-const Lien_Stripe_PACK = "https://buy.stripe.com/fZu00j2dydKA4QY5YF7EQ00";
+// --- LIENS DE PAIEMENT STRIPE ---
+const STRIPE_LINKS = {
+	"module-1": "https://buy.stripe.com/14A9AT05q35W83adr77EQ01",
+	"module-2": "https://buy.stripe.com/5kQ5kDg4o21S3MUdr77EQ02",
+	"module-3": "https://buy.stripe.com/8x2fZh5pK6i82IQ4UB7EQ03",
+	"module-4": "https://buy.stripe.com/00w00j05q0XOabi5YF7EQ04",
+	"pack-complet": "https://buy.stripe.com/fZu00j2dydKA4QY5YF7EQ00",
+};
 
-const title = "DOMINEZ VOTRE MARCHÉ | LA MÉTHODE ALEX";
-const expertName = "Alex"; // <--- CETTE LIGNE MANQUAIT PROBABLEMENT
+// Enregistrement des prospects dans Pilote 360 (Supabase)
+const LEAD_ENDPOINT =
+	"https://fjfutavsdlnernwtdsfu.supabase.co/functions/v1/formation-lead";
+
+const title =
+	"Coaching Vente Individuel pour Solopreneurs | La Méthode Alex";
+const description =
+	"Sessions de coaching commercial en tête-à-tête pour solopreneurs et indépendants : prospection, closing, objections. En visio ou en présentiel à Mornant (69). Dès 150 €.";
+const expertName = "Alex";
 
 const modules = [
-	// ... le reste ne change pas
 	{
-		id: "m1",
-		title: "01. ARCHITECTURE & RADAR CLIENT - 23/04/2026",
+		slug: "module-1",
+		num: "01",
+		title: "ARCHITECTURE & RADAR CLIENT",
 		tool: "Le Radar Client Haute-Précision",
-		desc: "Arrêtez de gaspiller votre énergie sur des prospects qui ne signeront jamais. Dans ce module, nous décortiquons la psychologie de votre acheteur idéal. Nous construisons votre matrice d'acquisition sur-mesure pour que vous sachiez exactement où chasser, comment prioriser vos efforts et comment devenir l'évidence aux yeux de votre marché.",
+		desc: "Arrêtez de gaspiller votre énergie sur des prospects qui ne signeront jamais. Dans cette session en tête-à-tête, nous décortiquons la psychologie de VOTRE acheteur idéal et nous construisons votre matrice d'acquisition sur-mesure : vous saurez exactement où chasser, comment prioriser vos efforts et comment devenir l'évidence aux yeux de votre marché.",
 		price: "150€",
-		link: Lien_Stripe_M1,
 	},
 	{
-		id: "m2",
-		title: "02. LA TRAME DE CLOSING INFRACHISSABLE - 30/04/2026",
+		slug: "module-2",
+		num: "02",
+		title: "LA TRAME DE CLOSING INFRANCHISSABLE",
 		tool: "Votre Script de Vente A à Z",
-		desc: "La vente n'est pas une improvisation, c'est une science. Je vous livre la structure exacte pour mener n'importe quel entretien, de la première poignée de main à la signature finale. Apprenez à poser les questions qui font mal, à instaurer une autorité immédiate et à guider votre client vers le 'Oui' sans jamais passer pour un vendeur agressif.",
+		desc: "La vente n'est pas une improvisation, c'est une science. Je construis avec vous la structure exacte pour mener n'importe quel entretien, de la première poignée de main à la signature finale. Vous repartez avec VOTRE script : les questions qui font mouche, l'autorité immédiate, et le chemin vers le « oui » sans jamais passer pour un vendeur agressif.",
 		price: "150€",
-		link: Lien_Stripe_M2,
 	},
 	{
-		id: "m3",
-		title: "03. GUÉRILLA : PROSPECTION & PHONING - 07/05/2026",
+		slug: "module-3",
+		num: "03",
+		title: "GUÉRILLA : PROSPECTION & PHONING",
 		tool: "Le Script Brise-Glace Éprouvé",
-		desc: "Le téléphone et la porte d'entrée sont vos meilleurs alliés, pas vos ennemis. Je vous transmets les techniques de terrain héritées des foires et du porte-à-porte pour briser le barrage du secrétariat, capter l'attention en moins de 10 secondes et transformer la peur du rejet en une adrénaline de conquête. Ne subissez plus, provoquez l'opportunité.",
+		desc: "Le téléphone est votre meilleur allié, pas votre ennemi. Je vous transmets les techniques de terrain héritées des foires et du porte-à-porte : briser le barrage du secrétariat, capter l'attention en moins de 10 secondes et transformer la peur du rejet en adrénaline de conquête. On s'entraîne ensemble, en conditions réelles.",
 		price: "150€",
-		link: Lien_Stripe_M3,
 	},
 	{
-		id: "m4",
-		title: "04. MAÎTRISE TOTALE DES OBJECTIONS - 14/05/2026",
+		slug: "module-4",
+		num: "04",
+		title: "MAÎTRISE TOTALE DES OBJECTIONS",
 		tool: "Le Guide de Riposte Commerciale",
-		desc: "'C'est trop cher', 'Je dois réfléchir', 'On verra plus tard'. Ces phrases ne sont plus des obstacles, mais des invitations à conclure. Apprenez la psychologie qui se cache derrière chaque refus. Je vous donne les répliques exactes et l'attitude mentale pour désamorcer les doutes et verrouiller vos prix sans jamais faire de concession.",
+		desc: "« C'est trop cher », « Je dois réfléchir », « On verra plus tard ». Ces phrases ne sont plus des obstacles, mais des invitations à conclure. Nous passons en revue les objections que VOUS entendez le plus, et je vous donne les répliques exactes et l'attitude mentale pour désamorcer les doutes et verrouiller vos prix sans concession.",
 		price: "150€",
-		link: Lien_Stripe_M4,
 	},
 ];
 ---
@@ -49,8 +57,17 @@ const modules = [
 <html lang="fr">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:locale" content="fr_FR" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" sizes="any" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
 			href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Montserrat:wght@400;700;900&display=swap"
 			rel="stylesheet"
@@ -115,21 +132,35 @@ const modules = [
 				padding: 0 1.5rem;
 				display: flex;
 				align-items: center;
-				justify-content: flex-start;
+				justify-content: space-between;
 			}
 
 			.brand-logo {
 				display: block;
 				max-height: 60px;
 				width: auto;
-				image-rendering: crisp-edges;
-				image-rendering: pixelated;
 			}
 
-			/* HERO SECTION */
+			.nav-cta {
+				color: var(--white);
+				text-decoration: none;
+				font-weight: 700;
+				font-size: 0.9rem;
+				letter-spacing: 1px;
+				border: 2px solid var(--tony-orange);
+				padding: 0.6rem 1.2rem;
+				border-radius: 4px;
+				transition: 0.3s;
+			}
+			.nav-cta:hover {
+				background: var(--tony-orange);
+			}
+
+			/* HERO */
 			.hero {
-				min-height: 95vh;
+				min-height: 90vh;
 				padding-top: calc(var(--nav-height) + 1.5rem);
+				padding-bottom: 3rem;
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
@@ -137,88 +168,87 @@ const modules = [
 				text-align: center;
 				background:
 					linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-					url("https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80"); /* Image de backup */
+					url("https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1600&q=60");
 				background-size: cover;
 				background-position: center;
 				border-bottom: 10px solid var(--tony-orange);
 			}
 			.hero h1 {
-				font-size: 6rem;
+				font-size: 5.2rem;
 				margin: 0;
-				line-height: 0.9;
+				line-height: 0.95;
 				letter-spacing: -2px;
 				font-weight: 900;
-				text-align: center;
 			}
 			.hero h1 span {
 				color: var(--tony-orange);
 			}
-			.hero p {
-				font-size: 1.6rem;
+			.hero .subtitle {
+				font-size: 1.5rem;
 				color: #ccc;
 				max-width: 850px;
 				margin: 2rem auto;
 				font-weight: 400;
-				text-align: center;
-				margin-left: auto;
-				margin-right: auto;
 			}
-
-			.countdown-wrap {
-				margin: 2rem auto 0 auto;
-				padding: 1rem 1.2rem;
-				background: rgba(0, 0, 0, 0.6);
-				border: 1px solid rgba(255, 255, 255, 0.22);
-				max-width: 980px;
-				text-align: center;
-			}
-
-			.countdown-title {
-				font-size: 1rem;
-				letter-spacing: 2px;
-				font-weight: 700;
-				color: #ffb081;
-				margin-bottom: 0.7rem;
-			}
-
-			.countdown {
-				display: grid;
-				grid-template-columns: repeat(4, minmax(90px, 1fr));
-				gap: 0.8rem;
-				place-items: center;
-				text-align: center;
-			}
-
-			.countdown-item {
-				background: rgba(0, 0, 0, 0.72);
-				padding: 0.8rem 0.6rem;
-				border: 1px solid rgba(255, 255, 255, 0.2);
-				text-align: center;
+			.hero-badges {
 				display: flex;
-				flex-direction: column;
-				align-items: center;
+				flex-wrap: wrap;
+				gap: 0.8rem;
 				justify-content: center;
+				margin-bottom: 2.2rem;
 			}
-
-			.countdown-value {
-				font-family: "Oswald", sans-serif;
-				font-size: 3rem;
-				line-height: 1;
+			.hero-badge {
+				border: 1px solid rgba(255, 255, 255, 0.35);
+				background: rgba(0, 0, 0, 0.55);
+				padding: 0.55rem 1.1rem;
+				font-size: 0.85rem;
 				font-weight: 700;
-				color: #fff;
-			}
-
-			.countdown-label {
-				font-family: "Montserrat", sans-serif;
-				font-size: 0.82rem;
-				font-weight: 700;
-				letter-spacing: 1.2px;
-				color: #d2d2d2;
-				margin-top: 0.4rem;
+				letter-spacing: 1px;
 				text-transform: uppercase;
 			}
+			.hero-badge strong {
+				color: var(--tony-orange);
+			}
 
-			/* PAINS SECTION */
+			/* ÉTAPES */
+			.steps {
+				background: #0a0a0a;
+				padding: 4.5rem 0;
+				border-bottom: 1px solid #222;
+			}
+			.steps h2 {
+				text-align: center;
+				font-size: 2.6rem;
+				margin-bottom: 3rem;
+			}
+			.steps-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+				gap: 30px;
+			}
+			.step {
+				border: 1px solid #333;
+				background: #000;
+				padding: 2.2rem;
+				text-align: center;
+			}
+			.step-num {
+				font-family: "Oswald", sans-serif;
+				font-size: 2.6rem;
+				color: var(--tony-orange);
+				font-weight: 700;
+			}
+			.step h3 {
+				font-size: 1.25rem;
+				margin: 0.8rem 0;
+			}
+			.step p {
+				color: #bbb;
+				line-height: 1.7;
+				margin: 0;
+			}
+
+			/* PAINS */
 			.pains {
 				background: var(--tony-gray);
 				padding: 6rem 0;
@@ -227,7 +257,14 @@ const modules = [
 			.pains h2 {
 				font-size: 3rem;
 				text-align: center;
-				margin-bottom: 4rem;
+				margin-bottom: 1rem;
+			}
+			.pains .pains-sub {
+				text-align: center;
+				color: #bbb;
+				font-size: 1.15rem;
+				max-width: 750px;
+				margin: 0 auto 4rem;
 			}
 			.pain-grid {
 				display: grid;
@@ -240,22 +277,30 @@ const modules = [
 				padding: 2.5rem;
 				border-radius: 4px;
 				text-align: center;
+				font-weight: 700;
 				transition: 0.3s;
 			}
 			.pain-item:hover {
 				border-color: var(--tony-orange);
 				transform: translateY(-5px);
 			}
+			.pain-emoji {
+				font-size: 3rem;
+				margin-bottom: 1rem;
+			}
 
-			/* MODULES SECTION */
+			/* MODULES */
 			.modules {
-				padding: 8rem 0;
+				padding: 7rem 0;
 			}
 			.module-row {
 				background: #111;
 				margin-bottom: 3rem;
 				border: 1px solid #222;
 				transition: 0.3s;
+			}
+			.module-row:hover {
+				border-color: #444;
 			}
 			.module-content {
 				padding: 4rem;
@@ -277,12 +322,31 @@ const modules = [
 				color: #bbb;
 				margin-bottom: 2.5rem;
 			}
+			.module-footer {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				border-top: 1px solid #333;
+				padding-top: 2rem;
+				gap: 1rem;
+				flex-wrap: wrap;
+			}
+			.module-price {
+				font-size: 2.5rem;
+				font-weight: 900;
+			}
+			.module-price small {
+				display: block;
+				font-size: 0.85rem;
+				color: #888;
+				font-weight: 400;
+			}
 
-			/* PACK COMPLET */
+			/* PACK */
 			.pack-premium {
 				background: linear-gradient(45deg, #000, #1a100a);
 				border: 4px solid var(--tony-orange);
-				padding: 5rem;
+				padding: 5rem 3rem;
 				text-align: center;
 				margin-top: 6rem;
 			}
@@ -301,10 +365,16 @@ const modules = [
 				border: none;
 				cursor: pointer;
 				font-family: "Oswald", sans-serif;
+				text-transform: uppercase;
 			}
 			.btn-tony:hover {
 				transform: scale(1.05);
 				filter: brightness(1.2);
+			}
+			.btn-tony:disabled {
+				opacity: 0.6;
+				cursor: wait;
+				transform: none;
 			}
 
 			.form-section {
@@ -315,14 +385,20 @@ const modules = [
 			.form-card {
 				max-width: 600px;
 				margin: 0 auto;
-				background: #fff;
 			}
 			.form-card h2 {
 				font-size: 3rem;
 				margin-bottom: 1rem;
 				text-align: center;
 			}
-			input,
+			.form-card label {
+				display: block;
+				font-weight: 700;
+				margin-bottom: 0.4rem;
+				font-size: 0.95rem;
+			}
+			input[type="text"],
+			input[type="email"],
 			select {
 				width: 100%;
 				padding: 1.2rem;
@@ -330,10 +406,34 @@ const modules = [
 				border: 2px solid #eee;
 				font-size: 1rem;
 				font-family: "Montserrat", sans-serif;
+				box-sizing: border-box;
+				background: #fff;
+			}
+			.consent-row {
+				display: flex;
+				gap: 0.7rem;
+				align-items: flex-start;
+				margin-bottom: 1.5rem;
+				font-size: 0.88rem;
+				line-height: 1.55;
+				color: #333;
+			}
+			.consent-row input {
+				margin-top: 0.2rem;
+				width: 1.1rem;
+				height: 1.1rem;
+			}
+			.form-error {
+				display: none;
+				background: #ffe8e0;
+				border-left: 4px solid #c0392b;
+				color: #7b241c;
+				padding: 0.9rem 1rem;
+				margin-bottom: 1.4rem;
+				font-size: 0.95rem;
 			}
 
 			.location-note {
-				font-family: "Montserrat", sans-serif;
 				font-size: 1.02rem;
 				line-height: 1.75;
 				color: #1f1f1f;
@@ -345,19 +445,26 @@ const modules = [
 
 			.site-footer {
 				text-align: center;
-				padding: 4rem;
-				color: #444;
+				padding: 4rem 1.5rem;
+				color: #666;
 				border-top: 1px solid #111;
+				font-size: 0.9rem;
+				line-height: 2;
 			}
-
 			.footer-logo {
 				display: block;
 				width: 150px;
 				max-width: 100%;
 				height: auto;
 				margin: 0 auto 1.2rem;
-				image-rendering: crisp-edges;
-				image-rendering: pixelated;
+			}
+			.footer-links a {
+				color: #999;
+				text-decoration: none;
+				margin: 0 0.7rem;
+			}
+			.footer-links a:hover {
+				color: var(--tony-orange);
 			}
 
 			.social-proof {
@@ -372,110 +479,123 @@ const modules = [
 				:root {
 					--nav-height: 76px;
 				}
-
 				.urgency-bar {
 					font-size: 0.78rem;
 					line-height: 1.5;
 				}
-
 				.hero h1 {
-					font-size: 3.5rem;
-				}
-
-				.countdown {
-					grid-template-columns: repeat(2, minmax(110px, 1fr));
-				}
-
-				.countdown-value {
-					font-size: 2.4rem;
+					font-size: 3.2rem;
 				}
 				.module-content {
 					padding: 2rem;
+				}
+				.pack-premium {
+					padding: 3rem 1.5rem;
 				}
 			}
 		</style>
 	</head>
 	<body>
 		<div class="urgency-bar">
-			PROCHAINE SESSION : 23 AVRIL À MORNANT | ATTENTION : PLUS QUE 3
-			PLACES DISPONIBLES SUR 8
+			COACHING 100% INDIVIDUEL — EN VISIO OU EN PRÉSENTIEL À MORNANT (69)
 		</div>
 
 		<nav class="top-nav">
 			<div class="nav-inner">
-				<img src="/logo-alex.png" alt="Logo Alex" class="brand-logo" />
+				<img
+					src="/logo-alex.png"
+					alt="La Méthode Alex — coaching vente"
+					class="brand-logo"
+				/>
+				<a href="#register" class="nav-cta">RÉSERVER MA SESSION</a>
 			</div>
 		</nav>
 
 		<section class="hero">
 			<div class="container">
-				<h1>MAÎTRISEZ L'ART DE GÉNÉRER DES <span>REVENUS</span></h1>
-				<div class="countdown-wrap">
-					<div class="countdown-title">Lancement dans</div>
-					<div class="countdown" id="countdown">
-						<div class="countdown-item">
-							<div class="countdown-value" id="countdown-days">
-								00
-							</div>
-							<div class="countdown-label">Jours</div>
-						</div>
-						<div class="countdown-item">
-							<div class="countdown-value" id="countdown-hours">
-								00
-							</div>
-							<div class="countdown-label">Heures</div>
-						</div>
-						<div class="countdown-item">
-							<div class="countdown-value" id="countdown-minutes">
-								00
-							</div>
-							<div class="countdown-label">Minutes</div>
-						</div>
-						<div class="countdown-item">
-							<div class="countdown-value" id="countdown-seconds">
-								00
-							</div>
-							<div class="countdown-label">Secondes</div>
-						</div>
+				<h1>
+					VOUS ÊTES SEUL À VENDRE.<br />
+					<span>PAS SEUL POUR APPRENDRE.</span>
+				</h1>
+				<p class="subtitle">
+					Coaching commercial en tête-à-tête pour solopreneurs et
+					indépendants. Ma mission : vous transmettre des outils
+					concrets qui deviennent des leviers immédiats de croissance.
+					Vous repartez de chaque session avec un plan d'action prêt à
+					l'emploi, pour vendre dès le lendemain et transformer chaque
+					opportunité en client fidèle.
+				</p>
+				<div class="hero-badges">
+					<div class="hero-badge">
+						<strong>1:1</strong> — Session individuelle sur-mesure
+					</div>
+					<div class="hero-badge">
+						<strong>Visio ou présentiel</strong> à Mornant (69)
+					</div>
+					<div class="hero-badge">
+						<strong>À votre rythme</strong> — 1 module ou les 4
 					</div>
 				</div>
-				<p>
-					Ma mission est de vous transmettre des outils concrets qui
-					deviennent des leviers immediats de croissance. L'objectif
-					est que vous puissiez repartir vendre et augmenter vos
-					revenus des la fin d'un module, en transformant chaque
-					opportunite en client fidele.
-				</p>
-				<a href="#register" class="btn-tony">REJOINDRE L'IMMERSION</a>
+				<a href="#register" class="btn-tony">RÉSERVER MA SESSION</a>
+			</div>
+		</section>
+
+		<section class="steps">
+			<div class="container">
+				<h2>COMMENT ÇA MARCHE ?</h2>
+				<div class="steps-grid">
+					<div class="step">
+						<div class="step-num">1</div>
+						<h3>Choisissez votre module</h3>
+						<p>
+							Un module ciblé sur votre point faible, ou le pack
+							complet pour une transformation totale.
+						</p>
+					</div>
+					<div class="step">
+						<div class="step-num">2</div>
+						<h3>Réglez en ligne</h3>
+						<p>
+							Paiement sécurisé par Stripe. Vous recevez
+							immédiatement votre confirmation par email.
+						</p>
+					</div>
+					<div class="step">
+						<div class="step-num">3</div>
+						<h3>Je vous contacte sous 24h</h3>
+						<p>
+							Nous fixons ensemble la date de votre session, en
+							visio ou en présentiel à Mornant, selon vos
+							disponibilités.
+						</p>
+					</div>
+				</div>
 			</div>
 		</section>
 
 		<section class="pains">
 			<div class="container">
 				<h2>POURQUOI VOUS NE SIGNEZ PAS ASSEZ ?</h2>
+				<p class="pains-sub">
+					Quand on est solopreneur, personne ne vend à votre place.
+					Chaque blocage commercial se paie directement sur votre
+					chiffre d'affaires.
+				</p>
 				<div class="pain-grid">
 					<div class="pain-item">
-						<div style="font-size: 3rem; margin-bottom: 1rem;">
-							🤐
-						</div>
+						<div class="pain-emoji" aria-hidden="true">🤐</div>
 						L'OBJECTION VOUS FAIT RECULER
 					</div>
 					<div class="pain-item">
-						<div style="font-size: 3rem; margin-bottom: 1rem;">
-							📞
-						</div>
+						<div class="pain-emoji" aria-hidden="true">📞</div>
 						LE PHONING VOUS PARALYSE
 					</div>
 					<div class="pain-item">
-						<div style="font-size: 3rem; margin-bottom: 1rem;">
-							📉
-						</div>
+						<div class="pain-emoji" aria-hidden="true">📉</div>
 						VOTRE CLOSING EST ALÉATOIRE
 					</div>
 					<div class="pain-item">
-						<div style="font-size: 3rem; margin-bottom: 1rem;">
-							🧱
-						</div>
+						<div class="pain-emoji" aria-hidden="true">🧱</div>
 						VOTRE PRIX EST UN OBSTACLE
 					</div>
 				</div>
@@ -485,30 +605,41 @@ const modules = [
 		<section class="modules">
 			<div class="container">
 				<h2
-					style="text-align:center; font-size: 4rem; margin-bottom: 5rem;"
+					style="text-align:center; font-size: 4rem; margin-bottom: 1.5rem;"
 				>
 					PROGRAMME D'EXCELLENCE
 				</h2>
+				<p
+					style="text-align:center; color:#bbb; font-size:1.15rem; max-width:750px; margin:0 auto 5rem;"
+				>
+					Chaque module est une session individuelle en tête-à-tête,
+					adaptée à VOTRE activité, VOS clients et VOS blocages.
+					Travaillez un seul module ou enchaînez les quatre.
+				</p>
 
 				{
 					modules.map((m) => (
-						<div class="module-row">
+						<div class="module-row" id={m.slug}>
 							<div class="module-content">
 								<span class="tool-label">
 									INCLUS : {m.tool}
 								</span>
-								<h3>{m.title}</h3>
+								<h3>
+									{m.num}. {m.title}
+								</h3>
 								<p class="module-desc">{m.desc}</p>
-								<div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #333; padding-top: 2rem;">
-									<span style="font-size: 2.5rem; font-weight: 900;">
+								<div class="module-footer">
+									<span class="module-price">
 										{m.price}
+										<small>Session individuelle 1:1</small>
 									</span>
 									<a
 										href="#register"
-										class="btn-tony"
+										class="btn-tony js-choose-module"
+										data-slug={m.slug}
 										style="padding: 1rem 2rem; font-size: 1rem;"
 									>
-										S'INSCRIRE À CE MODULE
+										RÉSERVER CE MODULE
 									</a>
 								</div>
 							</div>
@@ -526,34 +657,30 @@ const modules = [
 						PACK COMPLET "L'EXPERT DU TERRAIN"
 					</h2>
 					<p
-						style="font-size: 1.4rem; color: #ccc; margin-bottom: 3rem;"
+						style="font-size: 1.4rem; color: #ccc; margin-bottom: 2rem;"
 					>
-						Prenez le contrôle total. Les 4 piliers réunis pour une
+						Les 4 modules en accompagnement individuel, pour une
 						transformation radicale de vos revenus.
 					</p>
 					<p
-						style="font-size: 1.15rem; margin: -1rem 0 2.5rem; font-weight: 700; color: var(--tony-orange);"
+						style="font-size: 1.15rem; margin: 0 0 2.5rem; font-weight: 700; color: var(--tony-orange);"
 					>
-						Sessions d'immersion en présentiel à Mornant.
-					</p>
-					<p
-						class="social-proof"
-						style="color: #f5d5c4; margin-top: -0.8rem;"
-					>
-						Sessions limitées à 8 participants pour garantir une
-						immersion totale et des résultats immédiats.
+						4 sessions en tête-à-tête, en visio ou en présentiel à
+						Mornant — planifiées à votre rythme.
 					</p>
 					<div
 						style="font-size: 5rem; font-weight: 900; color: var(--tony-orange); margin-bottom: 2rem;"
 					>
-						490€ <span
+						490€
+						<span
 							style="font-size: 1.5rem; text-decoration: line-through; color: #555; font-weight: normal;"
 							>600€</span
 						>
 					</div>
 					<a
 						href="#register"
-						class="btn-tony"
+						class="btn-tony js-choose-module"
+						data-slug="pack-complet"
 						style="padding: 2rem 4rem; font-size: 1.5rem;"
 						>JE VEUX LE PACK COMPLET</a
 					>
@@ -567,59 +694,101 @@ const modules = [
 					<h2>PASSEZ À L'ACTION</h2>
 					<p style="text-align: center; margin-bottom: 3rem;">
 						Remplissez vos informations pour être redirigé vers le
-						paiement sécurisé.
+						paiement sécurisé Stripe.
 					</p>
 
-					<form id="payment-form">
+					<form id="payment-form" novalidate>
+						<label for="fname">Prénom</label>
 						<input
 							type="text"
 							id="fname"
-							placeholder="Prénom"
+							name="first_name"
+							placeholder="Votre prénom"
+							autocomplete="given-name"
 							required
 						/>
+
+						<label for="email">Adresse email</label>
 						<input
 							type="email"
 							id="email"
-							placeholder="Votre adresse email"
+							name="email"
+							placeholder="vous@exemple.fr"
+							autocomplete="email"
 							required
 						/>
-						<select id="product-choice">
-							<option value={Lien_Stripe_PACK}
-								>PACK COMPLET (4 Ateliers) - 490€</option
+
+						<label for="product-choice">Votre choix</label>
+						<select id="product-choice" name="product_slug">
+							<option value="pack-complet"
+								>PACK COMPLET — 4 sessions individuelles — 490€</option
 							>
-							<option value={Lien_Stripe_M1}
-								>Module 01 : Stratégie & Ciblage - 150€</option
+							<option value="module-1"
+								>Module 01 : Architecture & Radar Client — 150€</option
 							>
-							<option value={Lien_Stripe_M2}
-								>Module 02 : Le Plan de Vente - 150€</option
+							<option value="module-2"
+								>Module 02 : La Trame de Closing Infranchissable
+								— 150€</option
 							>
-							<option value={Lien_Stripe_M3}
-								>Module 03 : Prospection Offensive - 150€</option
+							<option value="module-3"
+								>Module 03 : Guérilla — Prospection & Phoning —
+								150€</option
 							>
-							<option value={Lien_Stripe_M4}
-								>Module 04 : Traitement des Objections - 150€</option
+							<option value="module-4"
+								>Module 04 : Maîtrise Totale des Objections —
+								150€</option
+							>
+						</select>
+
+						<label for="format-pref">Format souhaité</label>
+						<select id="format-pref" name="format_pref">
+							<option value="visio">En visio</option>
+							<option value="presentiel"
+								>En présentiel à Mornant (69440)</option
 							>
 						</select>
 
 						<p class="location-note">
-							Les sessions se déroulent à Mornant (69440). Après
-							votre règlement, vous recevrez instantanément par
-							email votre convocation avec l'adresse exacte et
-							tous les détails logistiques.
+							Après votre règlement, je vous contacte
+							personnellement sous 24h pour fixer ensemble la date
+							de votre session, selon vos disponibilités.
 						</p>
+
+						<div class="consent-row">
+							<input
+								type="checkbox"
+								id="consent"
+								name="consent"
+								required
+							/>
+							<label for="consent" style="font-weight: 400;">
+								J'accepte que mes informations soient utilisées
+								pour gérer mon inscription et être recontacté
+								dans le cadre de ma session, conformément à la
+								<a href="/politique-de-confidentialite"
+									>politique de confidentialité</a
+								>. J'accepte les
+								<a href="/cgv">conditions générales de vente</a
+								>.
+							</label>
+						</div>
+
+						<p class="form-error" id="form-error"></p>
 
 						<button
 							type="submit"
+							id="submit-btn"
 							class="btn-tony"
-							style="width: 100%; border: none;"
+							style="width: 100%;"
 							>VALIDER ET PAYER SUR STRIPE</button
 						>
 						<p
 							class="social-proof"
 							style="text-align: center; color: #2a2a2a; margin-top: 1rem;"
 						>
-							Sessions limitées à 8 participants pour garantir une
-							immersion totale et des résultats immédiats.
+							Paiement sécurisé par Stripe. Accompagnement 100%
+							individuel — votre session, vos objectifs, votre
+							marché.
 						</p>
 					</form>
 				</div>
@@ -627,71 +796,103 @@ const modules = [
 		</section>
 
 		<footer class="site-footer">
-			<img src="/logo-alex.png" alt="Logo Alex" class="footer-logo" />
+			<img
+				src="/logo-alex.png"
+				alt="La Méthode Alex"
+				class="footer-logo"
+			/>
+			<div class="footer-links">
+				<a href="/mentions-legales">Mentions légales</a> |
+				<a href="/cgv">CGV</a> |
+				<a href="/politique-de-confidentialite">Confidentialité</a>
+			</div>
 			© {new Date().getFullYear()} ATELIERS VENTE AVEC {
 				expertName.toUpperCase()
-			} - TOUS DROITS RÉSERVÉS
+			} — TOUS DROITS RÉSERVÉS
 		</footer>
 
-		<script is:inline>
-			const form = document.getElementById("payment-form");
-			form.addEventListener("submit", (e) => {
-				e.preventDefault();
-				const stripeUrl = document
-					.getElementById("product-choice")
-					.value.trim();
-				const isValidStripeCheckout =
-					stripeUrl.startsWith("https://buy.stripe.com") &&
-					/^https:\/\/buy\.stripe\.com\/.+/.test(stripeUrl);
+		<script is:inline define:vars={{ STRIPE_LINKS, LEAD_ENDPOINT }}>
+			// Pré-sélection du module depuis les boutons "Réserver"
+			const select = document.getElementById("product-choice");
+			document.querySelectorAll(".js-choose-module").forEach((btn) => {
+				btn.addEventListener("click", () => {
+					const slug = btn.dataset.slug;
+					if (slug && STRIPE_LINKS[slug]) select.value = slug;
+				});
+			});
 
-				if (!isValidStripeCheckout) {
-					alert(
-						"Petit souci de lien de paiement : merci de recharger la page ou de nous contacter pour finaliser votre inscription en toute sécurité.",
+			// Soumission : enregistrement du prospect puis redirection Stripe
+			const form = document.getElementById("payment-form");
+			const submitBtn = document.getElementById("submit-btn");
+			const errorBox = document.getElementById("form-error");
+
+			const showError = (msg) => {
+				errorBox.textContent = msg;
+				errorBox.style.display = "block";
+			};
+
+			form.addEventListener("submit", async (e) => {
+				e.preventDefault();
+				errorBox.style.display = "none";
+
+				const firstName = document.getElementById("fname").value.trim();
+				const email = document
+					.getElementById("email")
+					.value.trim()
+					.toLowerCase();
+				const slug = select.value;
+				const formatPref = document.getElementById("format-pref").value;
+				const consent = document.getElementById("consent").checked;
+
+				if (!firstName || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+					showError(
+						"Merci d'indiquer votre prénom et une adresse email valide.",
 					);
 					return;
 				}
-				// On peut ajouter ici une logique pour enregistrer l'email avant la redirection
-				window.location.href = stripeUrl;
-			});
-
-			const countdownDays = document.getElementById("countdown-days");
-			const countdownHours = document.getElementById("countdown-hours");
-			const countdownMinutes =
-				document.getElementById("countdown-minutes");
-			const countdownSeconds =
-				document.getElementById("countdown-seconds");
-			const countdownTarget = new Date(
-				"2026-04-23T09:00:00+02:00",
-			).getTime();
-
-			const pad = (value) => String(value).padStart(2, "0");
-
-			const updateCountdown = () => {
-				const now = Date.now();
-				const timeLeft = countdownTarget - now;
-
-				if (timeLeft <= 0) {
-					countdownDays.textContent = "00";
-					countdownHours.textContent = "00";
-					countdownMinutes.textContent = "00";
-					countdownSeconds.textContent = "00";
+				if (!consent) {
+					showError(
+						"Merci d'accepter la politique de confidentialité et les CGV pour continuer.",
+					);
+					return;
+				}
+				const stripeUrl = STRIPE_LINKS[slug];
+				if (!stripeUrl || !stripeUrl.startsWith("https://buy.stripe.com/")) {
+					showError(
+						"Petit souci de lien de paiement : merci de recharger la page ou de nous contacter.",
+					);
 					return;
 				}
 
-				const totalSeconds = Math.floor(timeLeft / 1000);
-				const days = Math.floor(totalSeconds / 86400);
-				const hours = Math.floor((totalSeconds % 86400) / 3600);
-				const minutes = Math.floor((totalSeconds % 3600) / 60);
-				const seconds = totalSeconds % 60;
+				submitBtn.disabled = true;
+				submitBtn.textContent = "REDIRECTION EN COURS…";
 
-				countdownDays.textContent = pad(days);
-				countdownHours.textContent = pad(hours);
-				countdownMinutes.textContent = pad(minutes);
-				countdownSeconds.textContent = pad(seconds);
-			};
+				// Enregistrement du prospect (ne bloque jamais le paiement)
+				let ref = "";
+				try {
+					const res = await fetch(LEAD_ENDPOINT, {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({
+							first_name: firstName,
+							email: email,
+							product_slug: slug,
+							format_pref: formatPref,
+						}),
+					});
+					if (res.ok) {
+						const data = await res.json();
+						if (data && data.ref) ref = data.ref;
+					}
+				} catch (_) {
+					/* on redirige quand même vers le paiement */
+				}
 
-			updateCountdown();
-			setInterval(updateCountdown, 1000);
+				const url = new URL(stripeUrl);
+				url.searchParams.set("prefilled_email", email);
+				if (ref) url.searchParams.set("client_reference_id", `${slug}__${ref}`);
+				window.location.href = url.toString();
+			});
 		</script>
 	</body>
 </html>

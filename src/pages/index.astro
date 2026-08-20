@@ -335,6 +335,56 @@ const modules = [
 				margin-top: 6rem;
 			}
 
+			/* TEASER AUDIT & AUTOMATISATION — encart sobre, pas une offre */
+			.audit-teaser {
+				margin-top: 3rem;
+				padding: 2.2rem 2.5rem;
+				border: 1px solid #2a2a2a;
+				border-left: 3px solid var(--tony-orange);
+				background: #0c0c0c;
+			}
+			.audit-teaser-label {
+				display: block;
+				font-size: 0.8rem;
+				letter-spacing: 1.5px;
+				font-weight: 700;
+				color: #999;
+				text-transform: uppercase;
+				margin-bottom: 0.7rem;
+			}
+			.audit-teaser h3 {
+				font-size: 1.5rem;
+				margin: 0 0 1rem;
+				color: #fff;
+			}
+			.audit-teaser p {
+				color: #bbb;
+				font-size: 1.02rem;
+				line-height: 1.7;
+				margin: 0 0 1rem;
+				max-width: 720px;
+			}
+			.audit-teaser-note {
+				font-size: 0.9rem;
+				color: #888;
+				font-style: italic;
+			}
+			.audit-teaser-link {
+				display: inline-block;
+				margin-top: 0.6rem;
+				color: var(--tony-orange);
+				font-weight: 700;
+				text-decoration: none;
+				border-bottom: 1px solid var(--tony-orange);
+				padding-bottom: 2px;
+				font-family: "Oswald", sans-serif;
+				letter-spacing: 0.5px;
+				font-size: 0.95rem;
+			}
+			.audit-teaser-link:hover {
+				opacity: 0.75;
+			}
+
 			/* FORMULAIRE & BOUTONS */
 			.btn-tony {
 				background: var(--tony-orange);
@@ -669,6 +719,28 @@ const modules = [
 						data-slug="pack-3-seances"
 						style="padding: 2rem 4rem; font-size: 1.5rem;"
 						>JE VEUX LE PACK 3 SÉANCES</a
+					>
+				</div>
+
+				<div class="audit-teaser">
+					<span class="audit-teaser-label"
+						>En complément de la formation</span
+					>
+					<h3>Audit & automatisation</h3>
+					<p>
+						Une fois que vous vendez mieux, il reste souvent du
+						temps à récupérer derrière : automatiser le suivi
+						client, les relances, la gestion administrative. On
+						regarde ensemble si ça a du sens pour vous.
+					</p>
+					<p class="audit-teaser-note">
+						Sur devis, après diagnostic en séance découverte.
+					</p>
+					<a
+						href="#register"
+						class="audit-teaser-link js-choose-module"
+						data-slug="decouverte"
+						>On en parle en séance découverte →</a
 					>
 				</div>
 			</div>

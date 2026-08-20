@@ -1,11 +1,9 @@
 ---
 // --- LIENS DE PAIEMENT STRIPE ---
 const STRIPE_LINKS = {
-	"module-1": "https://buy.stripe.com/14A9AT05q35W83adr77EQ01",
-	"module-2": "https://buy.stripe.com/5kQ5kDg4o21S3MUdr77EQ02",
-	"module-3": "https://buy.stripe.com/8x2fZh5pK6i82IQ4UB7EQ03",
-	"module-4": "https://buy.stripe.com/00w00j05q0XOabi5YF7EQ04",
-	"pack-complet": "https://buy.stripe.com/fZu00j2dydKA4QY5YF7EQ00",
+	decouverte: "https://buy.stripe.com/8x214nf0k0XObfm4UB7EQ07",
+	"seance-unique": "https://buy.stripe.com/28EcN52dyeOE1EMfzf7EQ06",
+	"pack-3-seances": "https://buy.stripe.com/aFa9ATcSc0XO5V2evb7EQ05",
 };
 
 // Enregistrement des prospects dans Pilote 360 (Supabase)
@@ -15,41 +13,27 @@ const LEAD_ENDPOINT =
 const title =
 	"Coaching Vente Individuel pour Solopreneurs | La Méthode Alex";
 const description =
-	"Sessions de coaching commercial en tête-à-tête pour solopreneurs et indépendants : prospection, closing, objections. En visio ou en présentiel à Mornant (69). Dès 150 €.";
+	"Sessions de coaching commercial en tête-à-tête pour solopreneurs et indépendants : prospection, closing, objections. En visio, présentiel possible sur demande. Dès 80 €.";
 const expertName = "Alex";
 
 const modules = [
 	{
-		slug: "module-1",
+		slug: "decouverte",
 		num: "01",
-		title: "ARCHITECTURE & RADAR CLIENT",
-		tool: "Le Radar Client Haute-Précision",
-		desc: "Arrêtez de gaspiller votre énergie sur des prospects qui ne signeront jamais. Dans cette session en tête-à-tête, nous décortiquons la psychologie de VOTRE acheteur idéal et nous construisons votre matrice d'acquisition sur-mesure : vous saurez exactement où chasser, comment prioriser vos efforts et comment devenir l'évidence aux yeux de votre marché.",
-		price: "150€",
+		title: "SÉANCE DÉCOUVERTE",
+		tool: "Diagnostic + 1 conseil actionnable",
+		desc: "Une heure pour faire le point sur votre situation commerciale actuelle : ce qui bloque, ce qui fonctionne déjà, ce qui mérite d'être travaillé en priorité. Vous repartez avec un diagnostic clair et un conseil concret que vous pouvez appliquer immédiatement, que vous poursuiviez ou non avec un accompagnement.",
+		price: "80€",
+		duration: "1h",
 	},
 	{
-		slug: "module-2",
+		slug: "seance-unique",
 		num: "02",
-		title: "LA TRAME DE CLOSING INFRANCHISSABLE",
-		tool: "Votre Script de Vente A à Z",
-		desc: "La vente n'est pas une improvisation, c'est une science. Je construis avec vous la structure exacte pour mener n'importe quel entretien, de la première poignée de main à la signature finale. Vous repartez avec VOTRE script : les questions qui font mouche, l'autorité immédiate, et le chemin vers le « oui » sans jamais passer pour un vendeur agressif.",
-		price: "150€",
-	},
-	{
-		slug: "module-3",
-		num: "03",
-		title: "GUÉRILLA : PROSPECTION & PHONING",
-		tool: "Le Script Brise-Glace Éprouvé",
-		desc: "Le téléphone est votre meilleur allié, pas votre ennemi. Je vous transmets les techniques de terrain héritées des foires et du porte-à-porte : briser le barrage du secrétariat, capter l'attention en moins de 10 secondes et transformer la peur du rejet en adrénaline de conquête. On s'entraîne ensemble, en conditions réelles.",
-		price: "150€",
-	},
-	{
-		slug: "module-4",
-		num: "04",
-		title: "MAÎTRISE TOTALE DES OBJECTIONS",
-		tool: "Le Guide de Riposte Commerciale",
-		desc: "« C'est trop cher », « Je dois réfléchir », « On verra plus tard ». Ces phrases ne sont plus des obstacles, mais des invitations à conclure. Nous passons en revue les objections que VOUS entendez le plus, et je vous donne les répliques exactes et l'attitude mentale pour désamorcer les doutes et verrouiller vos prix sans concession.",
-		price: "150€",
+		title: "FORMATION VENTE — SÉANCE UNIQUE",
+		tool: "Sur un blocage précis",
+		desc: "Deux heures et demie concentrées sur un blocage identifié : closing, objections, phoning, structure de votre argumentaire... On part de votre réalité de terrain, pas d'un programme générique. Vous repartez avec une méthode applicable dès votre prochain rendez-vous client.",
+		price: "200€",
+		duration: "2h30",
 	},
 ];
 ---
@@ -497,7 +481,8 @@ const modules = [
 	</head>
 	<body>
 		<div class="urgency-bar">
-			COACHING 100% INDIVIDUEL — EN VISIO OU EN PRÉSENTIEL À MORNANT (69)
+			QUELQUES CRÉNEAUX DISPONIBLES CHAQUE SEMAINE · SÉANCES EN VISIO
+			(PRÉSENTIEL POSSIBLE SUR DEMANDE)
 		</div>
 
 		<nav class="top-nav">
@@ -530,10 +515,12 @@ const modules = [
 						<strong>1:1</strong> — Session individuelle sur-mesure
 					</div>
 					<div class="hero-badge">
-						<strong>Visio ou présentiel</strong> à Mornant (69)
+						<strong>En visio</strong> par défaut — présentiel sur
+						demande
 					</div>
 					<div class="hero-badge">
-						<strong>À votre rythme</strong> — 1 module ou les 4
+						<strong>À la carte</strong> — découverte, séance
+						unique ou pack de suivi
 					</div>
 				</div>
 				<a href="#register" class="btn-tony">RÉSERVER MA SESSION</a>
@@ -546,10 +533,11 @@ const modules = [
 				<div class="steps-grid">
 					<div class="step">
 						<div class="step-num">1</div>
-						<h3>Choisissez votre module</h3>
+						<h3>Choisissez votre format</h3>
 						<p>
-							Un module ciblé sur votre point faible, ou le pack
-							complet pour une transformation totale.
+							Une séance découverte pour démarrer, une séance
+							unique sur un blocage précis, ou le pack de 3
+							séances pour un suivi dans la durée.
 						</p>
 					</div>
 					<div class="step">
@@ -565,7 +553,7 @@ const modules = [
 						<h3>Je vous contacte sous 24h</h3>
 						<p>
 							Nous fixons ensemble la date de votre session, en
-							visio ou en présentiel à Mornant, selon vos
+							visio (présentiel possible sur demande), selon vos
 							disponibilités.
 						</p>
 					</div>
@@ -607,14 +595,15 @@ const modules = [
 				<h2
 					style="text-align:center; font-size: 4rem; margin-bottom: 1.5rem;"
 				>
-					PROGRAMME D'EXCELLENCE
+					CHOISISSEZ VOTRE FORMAT
 				</h2>
 				<p
 					style="text-align:center; color:#bbb; font-size:1.15rem; max-width:750px; margin:0 auto 5rem;"
 				>
-					Chaque module est une session individuelle en tête-à-tête,
-					adaptée à VOTRE activité, VOS clients et VOS blocages.
-					Travaillez un seul module ou enchaînez les quatre.
+					Chaque séance est individuelle, adaptée à VOTRE activité
+					et VOS blocages du moment. Commencez par un diagnostic,
+					réglez un point précis, ou prenez un suivi sur plusieurs
+					séances.
 				</p>
 
 				{
@@ -622,7 +611,7 @@ const modules = [
 						<div class="module-row" id={m.slug}>
 							<div class="module-content">
 								<span class="tool-label">
-									INCLUS : {m.tool}
+									{m.tool}
 								</span>
 								<h3>
 									{m.num}. {m.title}
@@ -631,7 +620,7 @@ const modules = [
 								<div class="module-footer">
 									<span class="module-price">
 										{m.price}
-										<small>Session individuelle 1:1</small>
+										<small>{m.duration} · session individuelle</small>
 									</span>
 									<a
 										href="#register"
@@ -639,7 +628,7 @@ const modules = [
 										data-slug={m.slug}
 										style="padding: 1rem 2rem; font-size: 1rem;"
 									>
-										RÉSERVER CE MODULE
+										RÉSERVER CETTE SÉANCE
 									</a>
 								</div>
 							</div>
@@ -651,38 +640,35 @@ const modules = [
 					<span
 						class="oswald"
 						style="color: var(--tony-orange); font-size: 1.5rem;"
-						>OFFRE D'IMMERSION TOTALE</span
+						>SUIVI RAPPROCHÉ</span
 					>
 					<h2 style="font-size: 4rem; color: #fff; margin: 1rem 0;">
-						PACK COMPLET "L'EXPERT DU TERRAIN"
+						PACK 3 SÉANCES
 					</h2>
 					<p
 						style="font-size: 1.4rem; color: #ccc; margin-bottom: 2rem;"
 					>
-						Les 4 modules en accompagnement individuel, pour une
-						transformation radicale de vos revenus.
+						Trois séances de formation vente avec un suivi entre
+						chaque rendez-vous, pour ancrer la méthode dans la
+						durée plutôt qu'en une seule fois.
 					</p>
 					<p
 						style="font-size: 1.15rem; margin: 0 0 2.5rem; font-weight: 700; color: var(--tony-orange);"
 					>
-						4 sessions en tête-à-tête, en visio ou en présentiel à
-						Mornant — planifiées à votre rythme.
+						En visio — présentiel possible sur demande, planifié
+						à votre rythme.
 					</p>
 					<div
 						style="font-size: 5rem; font-weight: 900; color: var(--tony-orange); margin-bottom: 2rem;"
 					>
-						490€
-						<span
-							style="font-size: 1.5rem; text-decoration: line-through; color: #555; font-weight: normal;"
-							>600€</span
-						>
+						500€
 					</div>
 					<a
 						href="#register"
 						class="btn-tony js-choose-module"
-						data-slug="pack-complet"
+						data-slug="pack-3-seances"
 						style="padding: 2rem 4rem; font-size: 1.5rem;"
-						>JE VEUX LE PACK COMPLET</a
+						>JE VEUX LE PACK 3 SÉANCES</a
 					>
 				</div>
 			</div>
@@ -720,23 +706,14 @@ const modules = [
 
 						<label for="product-choice">Votre choix</label>
 						<select id="product-choice" name="product_slug">
-							<option value="pack-complet"
-								>PACK COMPLET — 4 sessions individuelles — 490€</option
+							<option value="decouverte"
+								>Séance découverte (1h) — 80€</option
 							>
-							<option value="module-1"
-								>Module 01 : Architecture & Radar Client — 150€</option
+							<option value="seance-unique"
+								>Formation vente, séance unique (2h30) — 200€</option
 							>
-							<option value="module-2"
-								>Module 02 : La Trame de Closing Infranchissable
-								— 150€</option
-							>
-							<option value="module-3"
-								>Module 03 : Guérilla — Prospection & Phoning —
-								150€</option
-							>
-							<option value="module-4"
-								>Module 04 : Maîtrise Totale des Objections —
-								150€</option
+							<option value="pack-3-seances"
+								>Formation vente, pack 3 séances — 500€</option
 							>
 						</select>
 

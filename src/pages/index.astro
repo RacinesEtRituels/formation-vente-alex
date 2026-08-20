@@ -335,54 +335,13 @@ const modules = [
 				margin-top: 6rem;
 			}
 
-			/* TEASER AUDIT & AUTOMATISATION — encart sobre, pas une offre */
-			.audit-teaser {
+			/* AUDIT & AUTOMATISATION — même traitement visuel que le pack, sans prix */
+			.audit-cta {
+				background: linear-gradient(45deg, #000, #1a100a);
+				border: 4px solid var(--tony-orange);
+				padding: 5rem 3rem;
+				text-align: center;
 				margin-top: 3rem;
-				padding: 2.2rem 2.5rem;
-				border: 1px solid #2a2a2a;
-				border-left: 3px solid var(--tony-orange);
-				background: #0c0c0c;
-			}
-			.audit-teaser-label {
-				display: block;
-				font-size: 0.8rem;
-				letter-spacing: 1.5px;
-				font-weight: 700;
-				color: #999;
-				text-transform: uppercase;
-				margin-bottom: 0.7rem;
-			}
-			.audit-teaser h3 {
-				font-size: 1.5rem;
-				margin: 0 0 1rem;
-				color: #fff;
-			}
-			.audit-teaser p {
-				color: #bbb;
-				font-size: 1.02rem;
-				line-height: 1.7;
-				margin: 0 0 1rem;
-				max-width: 720px;
-			}
-			.audit-teaser-note {
-				font-size: 0.9rem;
-				color: #888;
-				font-style: italic;
-			}
-			.audit-teaser-link {
-				display: inline-block;
-				margin-top: 0.6rem;
-				color: var(--tony-orange);
-				font-weight: 700;
-				text-decoration: none;
-				border-bottom: 1px solid var(--tony-orange);
-				padding-bottom: 2px;
-				font-family: "Oswald", sans-serif;
-				letter-spacing: 0.5px;
-				font-size: 0.95rem;
-			}
-			.audit-teaser-link:hover {
-				opacity: 0.75;
 			}
 
 			/* FORMULAIRE & BOUTONS */
@@ -524,6 +483,9 @@ const modules = [
 					padding: 2rem;
 				}
 				.pack-premium {
+					padding: 3rem 1.5rem;
+				}
+				.audit-cta {
 					padding: 3rem 1.5rem;
 				}
 			}
@@ -722,25 +684,35 @@ const modules = [
 					>
 				</div>
 
-				<div class="audit-teaser">
-					<span class="audit-teaser-label"
-						>En complément de la formation</span
+				<div class="audit-cta">
+					<span
+						class="oswald"
+						style="color: var(--tony-orange); font-size: 1.3rem;"
+						>EN COMPLÉMENT DE LA FORMATION</span
 					>
-					<h3>Audit & automatisation</h3>
-					<p>
-						Une fois que vous vendez mieux, il reste souvent du
-						temps à récupérer derrière : automatiser le suivi
-						client, les relances, la gestion administrative. On
-						regarde ensemble si ça a du sens pour vous.
+					<h2
+						style="font-size: 2.6rem; color: #fff; margin: 1rem 0; line-height: 1.2;"
+					>
+						VOS CONCURRENTS AUTOMATISENT DÉJÀ. ET VOUS ?
+					</h2>
+					<p
+						style="font-size: 1.3rem; color: #ccc; margin: 0 auto 1.5rem; max-width: 680px;"
+					>
+						La séance découverte inclut un rapide état des lieux
+						de ce que l'IA pourrait changer dans votre activité,
+						en plus du travail sur la vente.
 					</p>
-					<p class="audit-teaser-note">
-						Sur devis, après diagnostic en séance découverte.
+					<p
+						style="font-size: 1.05rem; margin: 0 0 2.5rem; font-weight: 700; color: var(--tony-orange);"
+					>
+						Sur devis, après diagnostic.
 					</p>
 					<a
 						href="#register"
-						class="audit-teaser-link js-choose-module"
+						class="btn-tony js-choose-module"
 						data-slug="decouverte"
-						>On en parle en séance découverte →</a
+						style="padding: 1.5rem 3rem; font-size: 1.1rem;"
+						>RÉSERVER MA SÉANCE DÉCOUVERTE</a
 					>
 				</div>
 			</div>

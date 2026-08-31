@@ -179,6 +179,16 @@ const description =
 		height: 100%;
 		background: var(--aq-accent);
 	}
+	.aq-insight {
+		margin: 20px 0 4px;
+		padding: 12px 16px;
+		border-left: 3px solid var(--aq-accent);
+		background: rgba(255, 85, 0, 0.08);
+		border-radius: 0 8px 8px 0;
+		font-size: 15px;
+		line-height: 1.5;
+		color: var(--aq-text);
+	}
 	.aq-cta {
 		display: inline-block;
 		margin-top: 20px;
@@ -230,6 +240,19 @@ const description =
 			{ cat: "ia", label: "IA & Automatisation", q: "Si tu gagnais 5h par semaine grâce à l'automatisation, qu'en ferais-tu ?",
 				options: [["Développer mon activité", 3], ["Prospecter davantage", 2], ["Me reposer", 1], ["Je ne sais pas", 0]] },
 		];
+
+		// ---- PHRASE PERSONNALISÉE selon la réponse à Q12 (index 11) ----
+		// Clé = libellé de l'option choisie pour "Si tu gagnais 5h par semaine…".
+		const Q12_INSIGHT = {
+			"Développer mon activité":
+				"Tu nous as dit vouloir investir ce temps dans le développement de ton activité — c'est exactement ce que libère une meilleure organisation.",
+			"Prospecter davantage":
+				"Tu nous as dit vouloir prospecter davantage avec ce temps gagné — la bonne nouvelle, c'est qu'un système bien structuré prospecte une partie du travail à ta place.",
+			"Me reposer":
+				"Tu nous as dit vouloir te reposer avec ce temps gagné — la première étape, c'est justement d'arrêter de tout porter seul.",
+			"Je ne sais pas":
+				"Tu n'as pas encore de réponse toute faite à cette question — c'est normal, et c'est souvent le signe qu'il est temps de clarifier où va vraiment ton temps.",
+		};
 
 		// ---- SEGMENTS DE RÉSULTAT (score total sur 36) ----
 		const RESULT_CONFIG = [
@@ -369,6 +392,12 @@ const description =
 			const bar = (label, val) => `
 				<div class="aq-score-bar-label"><span>${label}</span><span>${val}/12</span></div>
 				<div class="aq-score-track"><div class="aq-score-fill" style="width:${(val / 12) * 100}%"></div></div>`;
+
+			// Phrase personnalisée d'après la réponse à Q12 (index 11).
+			const q12 = QUESTIONS[11].options.find((o) => o[1] === answers[11]);
+			const insight = q12 ? Q12_INSIGHT[q12[0]] : "";
+			const insightBlock = insight ? `<p class="aq-insight">${insight}</p>` : "";
+
 			root.innerHTML = `
 				<div class="aq-card aq-result">
 					<h2>Ton profil : ${profil.profil}</h2>
@@ -376,6 +405,7 @@ const description =
 					${bar("Organisation", scores.organisation)}
 					${bar("Système de vente", scores.vente)}
 					${bar("IA & Automatisation", scores.ia)}
+					${insightBlock}
 					<a class="aq-cta" href="${profil.ctaUrl}">${profil.ctaLabel}</a>
 				</div>`;
 		}

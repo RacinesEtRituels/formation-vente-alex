@@ -489,6 +489,59 @@ const modules = [
 					padding: 3rem 1.5rem;
 				}
 			}
+
+			/* CTA FLOTTANT VERS LE QUIZ /audit */
+			.floating-audit-cta {
+				position: fixed;
+				z-index: 999;
+				left: 1rem;
+				right: 1rem;
+				bottom: 1rem;
+				text-align: center;
+				background: var(--tony-orange);
+				color: #fff;
+				text-decoration: none;
+				font-family: "Oswald", sans-serif;
+				text-transform: uppercase;
+				font-weight: 900;
+				letter-spacing: 0.5px;
+				font-size: 1rem;
+				padding: 1rem 1.4rem;
+				border-radius: 4px;
+				box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+				opacity: 0;
+				transform: translateY(140%);
+				pointer-events: none;
+				transition:
+					opacity 0.35s ease,
+					transform 0.35s ease;
+			}
+			.floating-audit-cta.is-visible {
+				opacity: 1;
+				transform: translateY(0);
+				pointer-events: auto;
+			}
+			.floating-audit-cta:hover {
+				filter: brightness(1.15);
+			}
+			@media (min-width: 768px) {
+				.floating-audit-cta {
+					left: auto;
+					right: 2rem;
+					bottom: 2rem;
+					font-size: 1.05rem;
+					padding: 1.1rem 2rem;
+				}
+			}
+			@media (prefers-reduced-motion: reduce) {
+				.floating-audit-cta {
+					transform: none;
+					transition: none;
+				}
+				.floating-audit-cta.is-visible {
+					transform: none;
+				}
+			}
 		</style>
 	</head>
 	<body>
@@ -842,6 +895,16 @@ const modules = [
 			} — TOUS DROITS RÉSERVÉS
 		</footer>
 
+		<a
+			href="/audit"
+			class="floating-audit-cta"
+			id="floating-audit-cta"
+			aria-hidden="true"
+			tabindex="-1"
+		>
+			Faites le point en 3 min →
+		</a>
+
 		<script is:inline define:vars={{ STRIPE_LINKS, LEAD_ENDPOINT }}>
 			// Pré-sélection du module depuis les boutons "Réserver"
 			const select = document.getElementById("product-choice");
@@ -924,6 +987,48 @@ const modules = [
 				if (ref) url.searchParams.set("client_reference_id", `${slug}__${ref}`);
 				window.location.href = url.toString();
 			});
+		</script>
+
+		<script is:inline>
+			// CTA flottant vers /audit : apparaît après le premier écran,
+			// se retire quand le formulaire d'inscription ou le footer est visible.
+			(function () {
+				const cta = document.getElementById("floating-audit-cta");
+				if (!cta) return;
+
+				const hideZones = Array.from(
+					document.querySelectorAll("#register, .site-footer"),
+				);
+				const intersecting = new Set();
+				let pastFold = false;
+
+				const apply = () => {
+					const show = pastFold && intersecting.size === 0;
+					cta.classList.toggle("is-visible", show);
+					cta.setAttribute("aria-hidden", show ? "false" : "true");
+					if (show) cta.removeAttribute("tabindex");
+					else cta.setAttribute("tabindex", "-1");
+				};
+
+				const onScroll = () => {
+					pastFold = window.scrollY > window.innerHeight;
+					apply();
+				};
+				window.addEventListener("scroll", onScroll, { passive: true });
+				window.addEventListener("resize", onScroll, { passive: true });
+				onScroll();
+
+				if ("IntersectionObserver" in window && hideZones.length) {
+					const io = new IntersectionObserver((entries) => {
+						for (const e of entries) {
+							if (e.isIntersecting) intersecting.add(e.target);
+							else intersecting.delete(e.target);
+						}
+						apply();
+					});
+					hideZones.forEach((el) => io.observe(el));
+				}
+			})();
 		</script>
 	</body>
 </html>

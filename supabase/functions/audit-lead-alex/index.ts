@@ -112,7 +112,9 @@ Deno.serve(async (req) => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ chat_id: chatId, text, parse_mode: "Markdown" }),
         });
-        if (!tg.ok) {
+        if (tg.ok) {
+          console.log("telegram sendMessage ok:", lead.id);
+        } else {
           console.error("telegram sendMessage failed:", tg.status, await tg.text());
         }
       } else {

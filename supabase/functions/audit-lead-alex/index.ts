@@ -1,9 +1,12 @@
-// audit-lead-alex — enregistre un lead du quiz de qualification (page /audit)
-// puis notifie le bot Telegram "MonBotJarvis".
+// audit-lead-alex — enregistre un lead du quiz de qualification (page /audit),
+// crée/retrouve une fiche CRM, puis notifie le bot Telegram "MonBotJarvis".
 //
 // Flux : page /audit  ──POST JSON──▶  cette fonction
 //   1. valide + insère la ligne dans public.audit_leads (clé service_role)
-//   2. envoie un message Telegram (ne bloque jamais la réponse au front)
+//   2. best effort : upsert d'une fiche public.customers (dédup email + activité,
+//      comme formation-lead) et écriture de audit_leads.customer_id
+//   3. best effort : message Telegram
+//   Les étapes 2 et 3 n'échouent jamais le flux : le lead audit_leads reste créé.
 //
 // Secrets attendus (Supabase → Edge Functions → Secrets) :
 //   SUPABASE_URL                (injecté automatiquement)
@@ -87,6 +90,66 @@ Deno.serve(async (req) => {
     if (error || !lead) {
       console.error("audit_leads insert failed:", error?.message);
       return json({ error: "insert_failed" }, 500);
+    }
+
+    // ─── Fiche CRM (best effort — ne bloque jamais le flux principal) ───────
+    try {
+      const noteLine =
+        `Quiz audit /audit — Profil : ${profil} — ${scoreTotal}/36 ` +
+        `(orga ${scoreOrganisation} / vente ${scoreVente} / IA ${scoreIa})`;
+
+      // Dédup par email + activité, comme la fonction formation-lead.
+      const { data: existing } = await db
+        .from("customers")
+        .select("id, notes")
+        .eq("activity_id", FORMATION_ACTIVITY_ID)
+        .ilike("email", email)
+        .maybeSingle();
+
+      let customerId: string | null = null;
+
+      if (existing) {
+        customerId = existing.id;
+        await db
+          .from("customers")
+          .update({
+            notes: `${existing.notes ?? ""}\n${noteLine}`.trim(),
+            updated_at: new Date().toISOString(),
+          })
+          .eq("id", customerId);
+      } else {
+        const { data: created, error: crmErr } = await db
+          .from("customers")
+          .insert({
+            activity_id: FORMATION_ACTIVITY_ID,
+            source: "quiz_audit",
+            full_name: prenom || email,
+            email,
+            type: "individual",
+            stage: "prospect",
+            tags: ["quiz-audit", "lead"],
+            notes: noteLine,
+          })
+          .select("id")
+          .single();
+        if (crmErr || !created) {
+          throw new Error(crmErr?.message ?? "customer_insert_failed");
+        }
+        customerId = created.id;
+      }
+
+      if (customerId) {
+        await db
+          .from("audit_leads")
+          .update({ customer_id: customerId })
+          .eq("id", lead.id);
+      }
+      console.log("CRM upsert ok:", lead.id, "→ customer", customerId);
+    } catch (e) {
+      console.error(
+        "CRM upsert failed (non bloquant):",
+        e instanceof Error ? e.message : e,
+      );
     }
 
     // ─── Notification Telegram (best effort) ───────────────────────────────

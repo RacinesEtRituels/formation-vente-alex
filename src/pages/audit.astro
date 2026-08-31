@@ -1,0 +1,415 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// URL publique du projet Supabase (non secrète). Fallback si la variable
+// d'environnement n'est pas définie sur Vercel.
+const SUPABASE_URL =
+	import.meta.env.PUBLIC_SUPABASE_URL ??
+	"https://fjfutavsdlnernwtdsfu.supabase.co";
+
+// Edge Function qui enregistre le lead + notifie Telegram. Aucune clé côté client.
+const AUDIT_ENDPOINT = `${SUPABASE_URL}/functions/v1/audit-lead-alex`;
+
+const title = "Quiz — Où en êtes-vous dans votre activité ? | La Méthode Alex";
+const description =
+	"12 questions, 3 minutes. Un diagnostic sur votre organisation, votre système de vente et votre usage de l'IA, avec une recommandation personnalisée.";
+---
+
+<Layout title={title} description={description} noindex={false}>
+	<div class="audit-intro-head">
+		<h1>Faites le point en 3 minutes</h1>
+		<p>
+			12 questions sur votre organisation, votre système de vente et
+			votre usage de l'IA. À la fin, vous obtenez votre profil et la
+			prochaine étape la plus utile pour vous.
+		</p>
+	</div>
+
+	<div id="audit-quiz-root"></div>
+</Layout>
+
+<style is:global>
+	.audit-intro-head {
+		max-width: 640px;
+		margin: 2.5rem auto 1.5rem;
+		text-align: center;
+	}
+	.audit-intro-head h1 {
+		margin-top: 0;
+	}
+	.audit-intro-head p {
+		color: #bbb;
+	}
+
+	#audit-quiz-root {
+		--aq-accent: #ff5500;
+		--aq-bg: #111;
+		--aq-text: #ffffff;
+		--aq-muted: #b5b5b5;
+		--aq-border: #333;
+		max-width: 640px;
+		margin: 0 auto 4rem;
+		font-family: "Montserrat", sans-serif;
+		color: var(--aq-text);
+	}
+	#audit-quiz-root * {
+		box-sizing: border-box;
+	}
+	.aq-card {
+		background: var(--aq-bg);
+		border: 1px solid var(--aq-border);
+		border-radius: 16px;
+		padding: 28px 24px;
+	}
+	.aq-progress-track {
+		height: 6px;
+		background: var(--aq-border);
+		border-radius: 4px;
+		overflow: hidden;
+		margin-bottom: 20px;
+	}
+	.aq-progress-fill {
+		height: 100%;
+		background: var(--aq-accent);
+		transition: width 0.3s ease;
+	}
+	.aq-category-tag {
+		display: inline-block;
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--aq-accent);
+		margin-bottom: 10px;
+		font-family: "Oswald", sans-serif;
+	}
+	.aq-question {
+		font-size: 19px;
+		font-weight: 700;
+		line-height: 1.4;
+		margin: 0 0 18px;
+	}
+	.aq-options {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+	.aq-option {
+		display: block;
+		padding: 13px 16px;
+		border: 1px solid var(--aq-border);
+		border-radius: 10px;
+		background: #000;
+		cursor: pointer;
+		font-size: 15px;
+		transition:
+			border-color 0.15s,
+			background 0.15s;
+	}
+	.aq-option:hover {
+		border-color: var(--aq-accent);
+	}
+	.aq-option.selected {
+		border-color: var(--aq-accent);
+		background: rgba(255, 85, 0, 0.14);
+		font-weight: 700;
+	}
+	.aq-nav {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 22px;
+	}
+	.aq-btn {
+		border: none;
+		border-radius: 10px;
+		padding: 11px 20px;
+		font-size: 15px;
+		font-weight: 700;
+		cursor: pointer;
+		font-family: "Oswald", sans-serif;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+	}
+	.aq-btn-primary {
+		background: var(--aq-accent);
+		color: #fff;
+	}
+	.aq-btn-primary:disabled {
+		background: #6b3a24;
+		cursor: not-allowed;
+	}
+	.aq-btn-ghost {
+		background: transparent;
+		color: var(--aq-muted);
+	}
+	.aq-intro h2,
+	.aq-result h2 {
+		margin-top: 0;
+	}
+	.aq-intro p,
+	.aq-result p {
+		color: var(--aq-muted);
+		line-height: 1.5;
+	}
+	.aq-email-field {
+		width: 100%;
+		padding: 12px 14px;
+		border: 1px solid var(--aq-border);
+		border-radius: 10px;
+		font-size: 15px;
+		margin-bottom: 14px;
+		background: #000;
+		color: #fff;
+		font-family: "Montserrat", sans-serif;
+	}
+	.aq-score-bar-label {
+		display: flex;
+		justify-content: space-between;
+		font-size: 13px;
+		margin: 14px 0 4px;
+		color: var(--aq-muted);
+	}
+	.aq-score-track {
+		height: 8px;
+		background: var(--aq-border);
+		border-radius: 4px;
+		overflow: hidden;
+	}
+	.aq-score-fill {
+		height: 100%;
+		background: var(--aq-accent);
+	}
+	.aq-insight {
+		margin: 20px 0 4px;
+		padding: 12px 16px;
+		border-left: 3px solid var(--aq-accent);
+		background: rgba(255, 85, 0, 0.08);
+		border-radius: 0 8px 8px 0;
+		font-size: 15px;
+		line-height: 1.5;
+		color: var(--aq-text);
+	}
+	.aq-cta {
+		display: inline-block;
+		margin-top: 20px;
+		padding: 13px 22px;
+		background: var(--aq-accent);
+		color: #fff;
+		border-radius: 10px;
+		text-decoration: none;
+		font-weight: 700;
+		font-family: "Oswald", sans-serif;
+		text-transform: uppercase;
+	}
+	.aq-error {
+		color: #ff8a5c;
+		font-size: 14px;
+		margin-top: 10px;
+	}
+</style>
+
+<script is:inline define:vars={{ AUDIT_ENDPOINT }}>
+	(function () {
+		// ---- QUESTIONS (12 questions, 3 catégories, options notées 0 à 3) ----
+		const QUESTIONS = [
+			// ORGANISATION
+			{ cat: "organisation", label: "Organisation", q: "Combien de temps passes-tu chaque semaine sur des tâches administratives répétitives (devis, factures, relances) ?",
+				options: [["Moins d'1h", 3], ["1 à 3h", 2], ["3 à 6h", 1], ["Plus de 6h", 0]] },
+			{ cat: "organisation", label: "Organisation", q: "As-tu un système pour suivre tes clients et prospects (CRM, tableau, fichier) ?",
+				options: [["Oui, structuré et à jour", 3], ["Oui, mais pas à jour", 2], ["Un fichier basique", 1], ["Non, rien", 0]] },
+			{ cat: "organisation", label: "Organisation", q: "Tes tâches répétitives (envoi de mails, rappels, factures) sont-elles automatisées ?",
+				options: [["Oui, la plupart", 3], ["Certaines", 2], ["Une ou deux", 1], ["Aucune", 0]] },
+			{ cat: "organisation", label: "Organisation", q: "Sens-tu que ton organisation actuelle limite ta croissance ?",
+				options: [["Pas du tout", 3], ["Un peu", 2], ["Beaucoup", 1], ["Complètement", 0]] },
+			// VENTE
+			{ cat: "vente", label: "Système de vente", q: "As-tu un tunnel de vente clair, de la prise de contact à la signature ?",
+				options: [["Oui, formalisé", 3], ["Oui, informel", 2], ["Vague", 1], ["Non", 0]] },
+			{ cat: "vente", label: "Système de vente", q: "Que fais-tu des prospects qui ne répondent pas tout de suite ?",
+				options: [["Relance systématique programmée", 3], ["Je relance parfois", 2], ["Je relance rarement", 1], ["Je ne relance pas", 0]] },
+			{ cat: "vente", label: "Système de vente", q: "Ton offre est-elle claire pour un client en 30 secondes ?",
+				options: [["Très claire", 3], ["Plutôt claire", 2], ["Floue", 1], ["Pas du tout", 0]] },
+			{ cat: "vente", label: "Système de vente", q: "Quel est ton taux de transformation approximatif (devis → client) ?",
+				options: [["Plus de 50%", 3], ["25 à 50%", 2], ["10 à 25%", 1], ["Moins de 10% ou je ne sais pas", 0]] },
+			// IA
+			{ cat: "ia", label: "IA & Automatisation", q: "Utilises-tu déjà des outils d'IA dans ton activité ?",
+				options: [["Oui, intégrés au quotidien", 3], ["Oui, ponctuellement", 2], ["J'ai testé une fois", 1], ["Jamais", 0]] },
+			{ cat: "ia", label: "IA & Automatisation", q: "Serais-tu prêt à déléguer une partie de ta relation client à un système automatisé ?",
+				options: [["Oui, totalement", 3], ["Oui, en partie", 2], ["Difficile à envisager", 1], ["Non", 0]] },
+			{ cat: "ia", label: "IA & Automatisation", q: "As-tu déjà essayé d'automatiser une tâche et abandonné faute de temps ou de compétence ?",
+				options: [["Non, j'ai réussi seul", 3], ["Non, je n'ai jamais essayé", 2], ["Oui, une fois", 1], ["Oui, plusieurs fois", 0]] },
+			{ cat: "ia", label: "IA & Automatisation", q: "Si tu gagnais 5h par semaine grâce à l'automatisation, qu'en ferais-tu ?",
+				options: [["Développer mon activité", 3], ["Prospecter davantage", 2], ["Me reposer", 1], ["Je ne sais pas", 0]] },
+		];
+
+		// ---- PHRASE PERSONNALISÉE selon la réponse à Q12 (index 11) ----
+		// Clé = libellé de l'option choisie pour "Si tu gagnais 5h par semaine…".
+		const Q12_INSIGHT = {
+			"Développer mon activité":
+				"Tu nous as dit vouloir investir ce temps dans le développement de ton activité — c'est exactement ce que libère une meilleure organisation.",
+			"Prospecter davantage":
+				"Tu nous as dit vouloir prospecter davantage avec ce temps gagné — la bonne nouvelle, c'est qu'un système bien structuré prospecte une partie du travail à ta place.",
+			"Me reposer":
+				"Tu nous as dit vouloir te reposer avec ce temps gagné — la première étape, c'est justement d'arrêter de tout porter seul.",
+			"Je ne sais pas":
+				"Tu n'as pas encore de réponse toute faite à cette question — c'est normal, et c'est souvent le signe qu'il est temps de clarifier où va vraiment ton temps.",
+		};
+
+		// ---- SEGMENTS DE RÉSULTAT (score total sur 36) ----
+		const RESULT_CONFIG = [
+			{ max: 14, profil: "Débutant organisationnel",
+				desc: "Tes bases méritent d'être posées avant d'aller plus loin : organisation et suivi client sont la priorité.",
+				ctaLabel: "Découvrir la formation vente", ctaUrl: "/#seance-unique" },
+			{ max: 25, profil: "Vente à structurer",
+				desc: "Tes fondations existent, mais ton système de vente a besoin d'être structuré pour convertir davantage.",
+				ctaLabel: "Réserver une séance découverte", ctaUrl: "/#decouverte" },
+			{ max: 36, profil: "Prêt pour l'automatisation",
+				desc: "Ton organisation et ta vente sont solides : tu es prêt à déléguer à l'IA pour gagner du temps.",
+				ctaLabel: "Demander l'audit automatisation", ctaUrl: "/#register" },
+		];
+
+		// ---- STATE ----
+		let current = -1; // -1 = intro
+		const answers = new Array(QUESTIONS.length).fill(null);
+		let email = "";
+		let prenom = "";
+
+		const root = document.getElementById("audit-quiz-root");
+
+		function render() {
+			if (current === -1) return renderIntro();
+			if (current === QUESTIONS.length) return renderEmailStep();
+			if (current === QUESTIONS.length + 1) return renderResult();
+			renderQuestion();
+		}
+
+		function renderIntro() {
+			root.innerHTML = `
+				<div class="aq-card aq-intro">
+					<h2>Où en es-tu vraiment dans ton activité ?</h2>
+					<p>12 questions, 3 minutes. À la fin, tu reçois ton profil et une recommandation personnalisée sur organisation, vente et IA.</p>
+					<button class="aq-btn aq-btn-primary" id="aq-start">Commencer le quiz</button>
+				</div>`;
+			document.getElementById("aq-start").onclick = () => { current = 0; render(); };
+		}
+
+		function renderQuestion() {
+			const q = QUESTIONS[current];
+			const progress = Math.round((current / QUESTIONS.length) * 100);
+			root.innerHTML = `
+				<div class="aq-card">
+					<div class="aq-progress-track"><div class="aq-progress-fill" style="width:${progress}%"></div></div>
+					<span class="aq-category-tag">${q.label} · ${current + 1}/${QUESTIONS.length}</span>
+					<p class="aq-question">${q.q}</p>
+					<div class="aq-options">
+						${q.options.map((opt, i) => `
+							<div class="aq-option${answers[current] === opt[1] ? ' selected' : ''}" data-value="${opt[1]}" data-index="${i}">
+								${opt[0]}
+							</div>`).join("")}
+					</div>
+					<div class="aq-nav">
+						<button class="aq-btn aq-btn-ghost" id="aq-back" ${current === 0 ? 'style="visibility:hidden"' : ''}>← Retour</button>
+						<button class="aq-btn aq-btn-primary" id="aq-next" ${answers[current] === null ? 'disabled' : ''}>Suivant →</button>
+					</div>
+				</div>`;
+
+			root.querySelectorAll(".aq-option").forEach((el) => {
+				el.onclick = () => {
+					answers[current] = parseInt(el.dataset.value, 10);
+					render();
+				};
+			});
+			document.getElementById("aq-back").onclick = () => { current -= 1; render(); };
+			document.getElementById("aq-next").onclick = () => { current += 1; render(); };
+		}
+
+		function renderEmailStep() {
+			root.innerHTML = `
+				<div class="aq-card">
+					<h2>Dernière étape</h2>
+					<p>Où envoyer ton profil et ta recommandation personnalisée ?</p>
+					<input class="aq-email-field" id="aq-prenom" type="text" placeholder="Prénom" autocomplete="given-name" />
+					<input class="aq-email-field" id="aq-email" type="email" placeholder="Ton email" autocomplete="email" />
+					<div id="aq-error"></div>
+					<div class="aq-nav">
+						<button class="aq-btn aq-btn-ghost" id="aq-back">← Retour</button>
+						<button class="aq-btn aq-btn-primary" id="aq-submit">Voir mon résultat</button>
+					</div>
+				</div>`;
+			document.getElementById("aq-prenom").value = prenom;
+			document.getElementById("aq-email").value = email;
+			document.getElementById("aq-back").onclick = () => { current -= 1; render(); };
+			document.getElementById("aq-submit").onclick = async () => {
+				prenom = document.getElementById("aq-prenom").value.trim();
+				email = document.getElementById("aq-email").value.trim();
+				const errorBox = document.getElementById("aq-error");
+				if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+					errorBox.innerHTML = '<p class="aq-error">Merci de renseigner un email valide.</p>';
+					return;
+				}
+				const btn = document.getElementById("aq-submit");
+				btn.disabled = true;
+				btn.textContent = "Envoi...";
+				await submitLead();
+				current += 1;
+				render();
+			};
+		}
+
+		function computeScores() {
+			const scores = { organisation: 0, vente: 0, ia: 0 };
+			QUESTIONS.forEach((q, i) => { scores[q.cat] += answers[i] || 0; });
+			const total = scores.organisation + scores.vente + scores.ia;
+			const profil = RESULT_CONFIG.find((r) => total <= r.max) || RESULT_CONFIG[RESULT_CONFIG.length - 1];
+			return { scores, total, profil };
+		}
+
+		async function submitLead() {
+			const { scores, total, profil } = computeScores();
+			const payload = {
+				prenom,
+				email,
+				score_organisation: scores.organisation,
+				score_vente: scores.vente,
+				score_ia: scores.ia,
+				score_total: total,
+				profil: profil.profil,
+				reponses: QUESTIONS.map((q, i) => ({ question: q.q, categorie: q.cat, score: answers[i] })),
+			};
+			try {
+				await fetch(AUDIT_ENDPOINT, {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(payload),
+				});
+			} catch (e) {
+				// On affiche quand même le résultat au visiteur.
+				console.error("Envoi du lead impossible:", e);
+			}
+		}
+
+		function renderResult() {
+			const { scores, profil } = computeScores();
+			const bar = (label, val) => `
+				<div class="aq-score-bar-label"><span>${label}</span><span>${val}/12</span></div>
+				<div class="aq-score-track"><div class="aq-score-fill" style="width:${(val / 12) * 100}%"></div></div>`;
+
+			// Phrase personnalisée d'après la réponse à Q12 (index 11).
+			const q12 = QUESTIONS[11].options.find((o) => o[1] === answers[11]);
+			const insight = q12 ? Q12_INSIGHT[q12[0]] : "";
+			const insightBlock = insight ? `<p class="aq-insight">${insight}</p>` : "";
+
+			root.innerHTML = `
+				<div class="aq-card aq-result">
+					<h2>Ton profil : ${profil.profil}</h2>
+					<p>${profil.desc}</p>
+					${bar("Organisation", scores.organisation)}
+					${bar("Système de vente", scores.vente)}
+					${bar("IA & Automatisation", scores.ia)}
+					${insightBlock}
+					<a class="aq-cta" href="${profil.ctaUrl}">${profil.ctaLabel}</a>
+				</div>`;
+		}
+
+		render();
+	})();
+</script>

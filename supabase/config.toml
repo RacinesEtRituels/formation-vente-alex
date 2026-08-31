@@ -1,0 +1,4 @@
+project_id = "formation-vente-alex"
+
+[functions.audit-lead-alex]
+verify_jwt = false

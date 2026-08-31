@@ -2,8 +2,13 @@
 interface Props {
 	title: string;
 	description?: string;
+	noindex?: boolean;
 }
-const { title, description = "Ateliers vente avec Alex — coaching commercial individuel pour solopreneurs." } = Astro.props;
+const {
+	title,
+	description = "Ateliers vente avec Alex — coaching commercial individuel pour solopreneurs.",
+	noindex = true,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -13,7 +18,7 @@ const { title, description = "Ateliers vente avec Alex — coaching commercial i
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>{title}</title>
 		<meta name="description" content={description} />
-		<meta name="robots" content="noindex, follow" />
+		{noindex && <meta name="robots" content="noindex, follow" />}
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" sizes="any" />
 		<meta name="generator" content={Astro.generator} />

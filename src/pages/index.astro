@@ -542,6 +542,46 @@ const modules = [
 					transform: none;
 				}
 			}
+
+			/* HERO — mise en page 2 colonnes : accroche à gauche, vidéo à droite */
+			.hero-split {
+				display: flex;
+				gap: 3rem;
+				align-items: center;
+				justify-content: center;
+				flex-wrap: wrap;
+				width: 100%;
+			}
+			.hero-split-text {
+				flex: 1 1 460px;
+				min-width: 0;
+				text-align: left;
+			}
+			.hero-split-text .hero-badges {
+				justify-content: flex-start;
+			}
+			.hero-split-video {
+				flex: 0 0 auto;
+				line-height: 0;
+			}
+			.hero-split-video iframe {
+				max-width: 100%;
+				border-radius: 8px;
+			}
+			@media (max-width: 900px) {
+				.hero-split-text {
+					flex-basis: 100%;
+					text-align: center;
+				}
+				.hero-split-text .hero-badges {
+					justify-content: center;
+				}
+				.hero-split-video {
+					flex-basis: 100%;
+					display: flex;
+					justify-content: center;
+				}
+			}
 		</style>
 	</head>
 	<body>
@@ -563,32 +603,47 @@ const modules = [
 
 		<section class="hero">
 			<div class="container">
-				<h1>
-					VOUS ÊTES SEUL À VENDRE.<br />
-					<span>PAS SEUL POUR APPRENDRE.</span>
-				</h1>
-				<p class="subtitle">
-					Coaching commercial en tête-à-tête pour solopreneurs et
-					indépendants. Ma mission : vous transmettre des outils
-					concrets qui deviennent des leviers immédiats de croissance.
-					Vous repartez de chaque session avec un plan d'action prêt à
-					l'emploi, pour vendre dès le lendemain et transformer chaque
-					opportunité en client fidèle.
-				</p>
-				<div class="hero-badges">
-					<div class="hero-badge">
-						<strong>1:1</strong> — Session individuelle sur-mesure
+				<div class="hero-split">
+					<div class="hero-split-text">
+						<h1>
+							VOUS ÊTES SEUL À VENDRE.<br />
+							<span>PAS SEUL POUR APPRENDRE.</span>
+						</h1>
+						<p class="subtitle">
+							Coaching commercial en tête-à-tête pour solopreneurs
+							et indépendants. Ma mission : vous transmettre des
+							outils concrets qui deviennent des leviers immédiats
+							de croissance. Vous repartez de chaque session avec un
+							plan d'action prêt à l'emploi, pour vendre dès le
+							lendemain et transformer chaque opportunité en client
+							fidèle.
+						</p>
+						<div class="hero-badges">
+							<div class="hero-badge">
+								<strong>1:1</strong> — Session individuelle sur-mesure
+							</div>
+							<div class="hero-badge">
+								<strong>En visio</strong> par défaut — présentiel sur
+								demande
+							</div>
+							<div class="hero-badge">
+								<strong>À la carte</strong> — découverte, séance
+								unique ou pack de suivi
+							</div>
+						</div>
+						<a href="#register" class="btn-tony">RÉSERVER MA SESSION</a>
 					</div>
-					<div class="hero-badge">
-						<strong>En visio</strong> par défaut — présentiel sur
-						demande
-					</div>
-					<div class="hero-badge">
-						<strong>À la carte</strong> — découverte, séance
-						unique ou pack de suivi
+					<div class="hero-split-video">
+						<iframe
+							src="https://app.heygen.com/embeds/e6545eead0ac4fb5ab50920c8ebd2d19"
+							width="360"
+							height="640"
+							frameborder="0"
+							allow="autoplay; fullscreen"
+							title="Présentation vidéo — La Méthode Alex"
+						></iframe>
 					</div>
 				</div>
-				<a href="#register" class="btn-tony">RÉSERVER MA SESSION</a>
 			</div>
 		</section>
 

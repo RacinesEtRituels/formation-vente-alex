@@ -402,6 +402,15 @@ const modules = [
 				box-sizing: border-box;
 				background: #fff;
 			}
+			/* « (facultatif) » doit se lire comme une précision, pas comme une
+			   contrainte de plus : même ligne, moins d'insistance. */
+			.optional {
+				font-weight: 400;
+				opacity: 0.6;
+				text-transform: none;
+				letter-spacing: 0;
+			}
+
 			.consent-row {
 				display: flex;
 				gap: 0.7rem;
@@ -811,6 +820,18 @@ const modules = [
 							required
 						/>
 
+						<label for="phone"
+							>Téléphone <span class="optional">(facultatif)</span></label
+						>
+						<input
+							type="tel"
+							id="phone"
+							name="phone"
+							placeholder="06 12 34 56 78"
+							autocomplete="tel"
+							inputmode="tel"
+						/>
+
 						<label for="product-choice">Votre choix</label>
 						<select id="product-choice" name="product_slug">
 							<option value="decouverte"
@@ -835,7 +856,9 @@ const modules = [
 						<p class="location-note">
 							Après votre règlement, je vous contacte
 							personnellement sous 24h pour fixer ensemble la date
-							de votre session, selon vos disponibilités.
+							de votre session, selon vos disponibilités. Laissez
+							votre numéro si vous préférez qu'on en parle de vive
+							voix.
 						</p>
 
 						<div class="consent-row">
@@ -936,6 +959,8 @@ const modules = [
 					.toLowerCase();
 				const slug = select.value;
 				const formatPref = document.getElementById("format-pref").value;
+				// Facultatif : sert à proposer un rendez-vous de vive voix
+				const phone = document.getElementById("phone").value.trim();
 				const consent = document.getElementById("consent").checked;
 
 				if (!firstName || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
@@ -972,6 +997,7 @@ const modules = [
 							email: email,
 							product_slug: slug,
 							format_pref: formatPref,
+							phone: phone,
 						}),
 					});
 					if (res.ok) {

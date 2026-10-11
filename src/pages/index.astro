@@ -986,9 +986,10 @@ const modules = [
 				submitBtn.disabled = true;
 				submitBtn.textContent = "REDIRECTION EN COURS…";
 
-				// Enregistrement du prospect (ne bloque jamais le paiement)
-				let ref = "";
-				try {
+				// Enregistrement du prospect. Il ne bloque jamais le paiement —
+				// mais un échec silencieux fait perdre le prospect qui n'irait
+				// pas jusqu'au bout du règlement, alors on réessaie une fois.
+				const enregistrerProspect = async () => {
 					const res = await fetch(LEAD_ENDPOINT, {
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
@@ -1000,12 +1001,22 @@ const modules = [
 							phone: phone,
 						}),
 					});
-					if (res.ok) {
-						const data = await res.json();
-						if (data && data.ref) ref = data.ref;
+					if (!res.ok) throw new Error(`lead_http_${res.status}`);
+					const data = await res.json();
+					return data && data.ref ? data.ref : "";
+				};
+
+				let ref = "";
+				for (let essai = 0; essai < 2 && !ref; essai++) {
+					try {
+						ref = await enregistrerProspect();
+					} catch (err) {
+						// Visible dans la console du navigateur et dans les
+						// outils de suivi : sans cette trace, un endpoint cassé
+						// ne se remarque qu'en constatant l'absence de prospects.
+						console.error("Enregistrement du prospect échoué", err);
+						if (essai === 0) await new Promise((r) => setTimeout(r, 600));
 					}
-				} catch (_) {
-					/* on redirige quand même vers le paiement */
 				}
 
 				const url = new URL(stripeUrl);
